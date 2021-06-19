@@ -65,7 +65,7 @@ const ModuleSchema = new Schema({
 });
 
 ModuleSchema.plugin(idValidator, {
-  message: "Bsd ID value for {PATH}"
+  message: "Bad ID value for {PATH}"
 });
 
 const Module = mongoose.model('Module', ModuleSchema);
