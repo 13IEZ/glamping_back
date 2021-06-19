@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid');
 const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
