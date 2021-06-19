@@ -28,7 +28,7 @@ const LocationSchema = new Schema({
     default: true,
     required: true
   },
-  electrocity: {
+  electricity: {
     type: Boolean,
     default: true,
     required: true
@@ -56,7 +56,7 @@ const LocationSchema = new Schema({
 });
 
 LocationSchema.plugin(idValidator, {
-  message: "Bsd ID value for {PATH}"
+  message: "Bad ID value for {PATH}"
 });
 
 const Location = mongoose.model('Location', LocationSchema);
