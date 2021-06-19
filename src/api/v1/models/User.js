@@ -25,6 +25,21 @@ const UserSchema = Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    required: true,
+    default: "user"
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  description: String
 });
 
 UserSchema.pre('save', async function (next) {
