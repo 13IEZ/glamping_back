@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "fixtures": "node fixtures.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
