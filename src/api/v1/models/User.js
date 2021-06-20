@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid');
 const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -25,6 +25,21 @@ const UserSchema = Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    required: true,
+    default: "user"
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  description: String
 });
 
 UserSchema.pre('save', async function (next) {
