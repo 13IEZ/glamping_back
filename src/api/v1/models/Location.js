@@ -7,10 +7,10 @@ const LocationSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
+  image: [{
     type: String,
     required: true
-  },
+  }],
   square: {
     type: Number,
     required: true

@@ -11,10 +11,10 @@ const ModuleSchema = new Schema({
     type: String,
     required: true
   },
-  image: {
+  image: [{
     type: String,
     required: true
-  },
+  }],
   roominess: {
     type: Number,
     required: true
