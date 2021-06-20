@@ -52,11 +52,11 @@ const LocationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
+  }
 });
 
 LocationSchema.plugin(idValidator, {
-  message: "Bsd ID value for {PATH}"
+  message: "Bad ID value for {PATH}"
 });
 
 const Location = mongoose.model('Location', LocationSchema);
