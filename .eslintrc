@@ -4,7 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["airbnb-base", "plugin:node/recommended", "plugin:security/recommended"],
+  "extends": ["plugin:node/recommended", "plugin:security/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -22,6 +22,6 @@
     "node/prefer-global/url": ["error", "always"],
     "node/prefer-promises/dns": "error",
     "node/prefer-promises/fs": "error",
-    "linebreak-style": ["error", "windows", "unix"]
+    "linebreak-style": ["error", "windows"]
   }
 }
