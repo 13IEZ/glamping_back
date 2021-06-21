@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./config/config');
+const config = require('../config');
 const app = express();
 
 const port = 8000;
@@ -26,4 +26,4 @@ const run = async () => {
   });
 };
 
-run().catch((e) => console.log(e));
+run().catch(e => console.log(e));
