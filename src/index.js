@@ -7,6 +7,7 @@ const app = express();
 const port = 8000;
 
 const users = require('./api/v1/routes/users');
+const modules = require('./api/v1/routes/modules');
 
 const run = async () => {
   await mongoose.connect(config.getDbUrl(), {
@@ -20,6 +21,7 @@ const run = async () => {
   app.use(express.static('public'));
 
   app.use('/users', users());
+  app.use('/modules', modules());
 
   app.listen(port, () => {
     console.log('Server started at http://localhost' + port);
