@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const {nanoid} = require('nanoid');
-const config = require('./src/config/config');
+
+const config = require('./config');
 
 const User = require('./src/api/v1/models/User');
 const Location = require('./src/api/v1/models/Location');
