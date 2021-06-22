@@ -30,9 +30,9 @@ const createRouter = () => {
       user.generateToken();
 
       try {
-        await user.save({ validateBeforeSave: false });
+        await user.save();
       } catch (e) {
-        res.status(500).send(e);
+        return res.status(500).send(e);
       }
       res.send(user);
     } catch (e) {
