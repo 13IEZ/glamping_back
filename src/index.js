@@ -15,7 +15,8 @@ const run = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    validateBeforeSave: false
+    validateBeforeSave: false,
+    useCreateIndex: true,
   });
 
   app.use(cors());
