@@ -28,7 +28,7 @@ const LocationSchema = new Schema({
     default: true,
     required: true
   },
-  electrocity: {
+  electricity: {
     type: Boolean,
     default: true,
     required: true
