@@ -32,7 +32,7 @@ const ModuleSchema = new Schema({
     required: true
   },
   series: {
-    type: Number,
+    type: String,
     required: true
   },
   color: {
