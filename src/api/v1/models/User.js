@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
     validate: {
-      validator: async (value) => {
+      validator: async value => {
         const user = await User.findOne({ username: value });
         if (user) return false;
       },
@@ -27,9 +27,9 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "user"],
+    enum: ['admin', 'user'],
     required: true,
-    default: "user"
+    default: 'user',
   },
   phone: {
     type: String,
@@ -39,7 +39,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  description: String
+  description: {
+    type: String,
+    required: false,
+  },
 });
 
 UserSchema.pre('save', async function (next) {
