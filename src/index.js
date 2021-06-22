@@ -6,6 +6,7 @@ const app = express();
 
 const port = 8000;
 
+const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const modules = require('./api/v1/routes/modules');
 
@@ -20,6 +21,7 @@ const run = async () => {
   app.use(express.json());
   app.use(express.static('public'));
 
+  app.use('/locations', locations());
   app.use('/users', users());
   app.use('/modules', modules());
 
