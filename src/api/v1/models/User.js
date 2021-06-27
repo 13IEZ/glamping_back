@@ -7,15 +7,6 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: async value => {
-        const user = await User.findOne({ username: value });
-        if (user) return false;
-      },
-      message: 'This user is already registered',
-    },
   },
   password: {
     type: String,
@@ -33,15 +24,21 @@ const UserSchema = new Schema({
   },
   phone: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
+    unique: true,
     required: true,
+    validate: {
+      validator: async value => {
+        const user = await User.findOne({ email: value });
+        if (user) return false;
+      },
+      message: 'This user is already registered',
+    },
   },
   description: {
     type: String,
-    required: false,
   },
 });
 
