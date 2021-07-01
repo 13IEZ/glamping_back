@@ -6,6 +6,7 @@ const config = require('./config');
 const User = require('./src/api/v1/models/User');
 const Location = require('./src/api/v1/models/Location');
 const Module = require('./src/api/v1/models/Module');
+const Review = require('./src/api/v1/models/Review');
 
 mongoose.connect(config.getDbUrl(), {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 
@@ -16,6 +17,7 @@ db.once('open' , async () => {
       await db.dropCollection('locations');
       await db.dropCollection('modules');
       await db.dropCollection('users');
+      await db.dropCollection('reviews');
   } catch (err) {
       console.log('Collections were not presented. Skipping drop');
   }
@@ -42,7 +44,7 @@ db.once('open' , async () => {
     email: 'test@test.com'
   });
 
-  await Location.create({
+  const [balkash, beskaynar, alakol]= await Location.create({
     title: 'Balkash',
     image: ['balkash1.jpeg', 'balkash2.jpeg'],
     square: '800',
@@ -82,7 +84,7 @@ db.once('open' , async () => {
     owner: testUser._id
   });
 
-  await Module.create({
+  const [geokupol4, aleut, yurta] = await Module.create({
     title: 'Геокупол-4',
     type: 'геокупол',
     image: ['geo1.png', 'geo2.jpeg'],
@@ -130,5 +132,36 @@ db.once('open' , async () => {
     published: true,
     factory: userUser._id
   });
+
+  await Review.create({
+    pros: 'Отличная природа',
+    cons: 'Далеко от дороги, много комаров',
+    review: 'В целом отдых удался на славу! Природа, озеро, а закат просто волшебный!',
+    date: new Date(2021, 7, 6),
+    rating: 5,
+    user: userUser._id,
+    location: balkash._id
+  }, {
+    review: 'Хороший модуль, просторный',
+    date: new Date(2021, 5, 8),
+    rating: 4,
+    user: userUser._id,
+    module: aleut._id
+  }, {
+    pros: 'Комфортабельно',
+    review: 'Все было здорово, рекомендую',
+    date: new Date(2021, 6, 7),
+    rating: 5,
+    user: testUser._id,
+    module: geokupol4._id
+  }, {
+    cons: 'Нет интернета',
+    review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
+    date: new Date(2021, 8, 8),
+    rating: 5,
+    user: testUser._id,
+    location: alakol._id
+  });
+
   db.close();
 });
