@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createRouter = () => {
-  router.get('/', auth, async (req, res) => {
+  router.get('/', async (req, res) => {
     let modules;
     try {
       modules = await Module.find();

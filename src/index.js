@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('../config');
 const app = express();
+const swaggerUi = require('swagger-ui-express'),
+      swaggerDocument = require('./swagger/openapi.json');
 
 const port = 8000;
 
@@ -29,6 +31,7 @@ const run = async () => {
   app.use('/modules', modules());
   app.use('/reviews', reviews());
 
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.listen(port, () => {
     console.log('Server started at http://localhost' + port);
   });
