@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Glamping API"
+  }, 
+  "servers": [{
+    "url": "http://localhost:8000"
+  }],
+  "tags": [
+    {
+      "name": "user"
+    },
+    {
+      "name": "location"
+    },
+    {
+      "name": "module"
+    },
+    {
+      "name": "review"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Module": {
+        "type": "object",
+        "required": ["title", "type", "image", "roominess", "year", "description"],
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "roominess": {
+            "type": "integer"
+          },
+          "year": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          },
+          "series": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "rent": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "factory": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/modules": {
+      "get": {
+        "tags": ["module"],
+        "summary": "Get all modules",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Module"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
