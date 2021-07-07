@@ -12,6 +12,10 @@ const reviews = require('./api/v1/routes/reviews');
 
 const { MONGO_HOSTNAME, MONGO_PORT, MONGO_DB, PORT } = process.env;
 
+let portVar;
+if (MONGO_HOSTNAME) portVar = PORT;
+else portVar = 85;
+
 const url = `mongodb://${MONGO_HOSTNAME ?? 'localhost'}:${MONGO_PORT}/${MONGO_DB}`;
 
 const run = async () => {
@@ -32,8 +36,8 @@ const run = async () => {
   app.use('/modules', modules());
   app.use('/reviews', reviews());
 
-  app.listen(PORT, () => {
-    console.log('Server started at http://localhost' + PORT);
+  app.listen(portVar, () => {
+    console.log('Server started at http://localhost' + portVar);
   });
 };
 
