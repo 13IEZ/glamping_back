@@ -8,7 +8,11 @@ const Location = require('./src/api/v1/models/Location');
 const Module = require('./src/api/v1/models/Module');
 const Review = require('./src/api/v1/models/Review');
 
-mongoose.connect(config.getDbUrl(), {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+mongoose.connect(config.getDbUrl(), {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
 
 const db = mongoose.connection;
 
@@ -23,6 +27,7 @@ db.once('open' , async () => {
   }
   const [userUser, adminUser, testUser] = await User.create({
     username: 'user',
+    userSurname: 'surname',
     password: 'user',
     token: nanoid(),
     role: 'user',
@@ -30,6 +35,7 @@ db.once('open' , async () => {
     email: 'user@user.com'
   }, {
     username: 'admin',
+    userSurname: 'surname',
     password: 'admin',
     token: nanoid(),
     role: 'admin',
@@ -37,6 +43,7 @@ db.once('open' , async () => {
     email: 'admin@admin.com'
   }, {
     username: 'test',
+    userSurname: 'surname',
     password: 'test',
     token: nanoid(),
     role: 'user',
@@ -48,7 +55,8 @@ db.once('open' , async () => {
     title: 'Balkash',
     image: ['balkash1.jpeg', 'balkash2.jpeg'],
     square: '800',
-    description: 'Сдам в аренду земельный участок. Целевое назначение крестьянское хозяйство на берегу озера залив Чубартюбек.',
+    description: 'Сдам в аренду земельный участок. Целевое назначение ' +
+      'крестьянское хозяйство на берегу озера залив Чубартюбек.',
     rent: '5000',
     status: true,
     electricity: true,
@@ -56,12 +64,14 @@ db.once('open' , async () => {
     road: true,
     published: true,
     owner: userUser._id
-  },
-  {
+  }, {
     title: 'Beskaynar',
     image: ['beskaynar1.jpeg', 'beskaynar2.jpeg', 'beskaynar3.jpeg'],
     square: '1320',
-    description: 'Земля в собственности! Сдам 13,2 га (1320 соток) в пос. Бескайнар (бывш. Горный Садовод). Участок граничит с комплексом Табаган" на протяжении -155 м, длина более -1000 м. Магистральный газ и свет проходят по участку, подводят государственное водоснабжение.',
+    description: 'Земля в собственности! Сдам 13,2 га (1320 соток) в пос. ' +
+      'Бескайнар (бывш. Горный Садовод). Участок граничит с комплексом Табаган" на протяжении -155 м, ' +
+      'длина более -1000 м. Магистральный газ и свет проходят по участку, ' +
+      'подводят государственное водоснабжение.',
     rent: '13000',
     status: true,
     electricity: true,
@@ -69,12 +79,12 @@ db.once('open' , async () => {
     road: true,
     published: true,
     owner: testUser._id
-  },
-  {
+  }, {
     title: 'Alakol',
     image: ['alakol1.jpeg', 'alakol2.jpeg', 'alakol3.jpeg'],
     square: '50',
-    description: 'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
+    description: 'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. ' +
+      'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
     rent: '9000',
     status: true,
     electricity: true,
@@ -90,7 +100,9 @@ db.once('open' , async () => {
     image: ['geo1.png', 'geo2.jpeg'],
     roominess: 3,
     year: '2020',
-    description: 'Геодезический купол (геокупол, геодом) — сферическое архитектурное сооружение, собранное из стержней, образующих геодезическую структуру, благодаря которой сооружение в целом обладает хорошими несущими качествами. Геодезический купол является несущей сетчатой оболочкой.',
+    description: 'Геодезический купол (геокупол, геодом) — сферическое архитектурное сооружение, ' +
+      'собранное из стержней, образующих геодезическую структуру, благодаря которой сооружение в целом ' +
+      'обладает хорошими несущими качествами. Геодезический купол является несущей сетчатой оболочкой.',
     number: 1,
     series: '00001',
     color: 'white',
@@ -99,14 +111,15 @@ db.once('open' , async () => {
     status: true,
     published: true,
     factory: userUser._id
-  },
-  {
+  }, {
     title: 'Алеут',
     type: 'модуль (полимер)',
     image: ['modul1.jpeg', 'modul2.jpeg'],
     roominess: 3,
     year: '2021',
-    description: 'В модуле комфортно жить и зимой, и летом. Композитные материалы стен и уникальная конструкция витража и окон хорошо сохраняют тепло. «Алеут» состоит из двух блоков — примерно по 1,5 тонны каждый. Дом легко разобрать, а затем снова собрать.',
+    description: 'В модуле комфортно жить и зимой, и летом. Композитные материалы стен и ' +
+      'уникальная конструкция витража и окон хорошо сохраняют тепло. «Алеут» состоит из двух ' +
+      'блоков — примерно по 1,5 тонны каждый. Дом легко разобрать, а затем снова собрать.',
     number: 2,
     series: '000022',
     color: 'white',
@@ -115,8 +128,7 @@ db.once('open' , async () => {
     status: true,
     published: true,
     factory: testUser._id
-  },
-  {
+  }, {
     title: 'Юрта',
     type: 'тент',
     image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
