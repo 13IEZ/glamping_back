@@ -1,20 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('../config');
 const app = express();
-const swaggerUi = require('swagger-ui-express'),
-      swaggerDocument = require('./swagger/openapi.json');
-
-const port = 8000;
+const dotenv = require('dotenv');
+dotenv.config();
 
 const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const modules = require('./api/v1/routes/modules');
 const reviews = require('./api/v1/routes/reviews');
 
+const { MONGO_HOSTNAME, MONGO_PORT, MONGO_DB, PORT } = process.env;
+
+const url = `mongodb://${MONGO_HOSTNAME ?? 'localhost'}:${MONGO_PORT}/${MONGO_DB}`;
+
 const run = async () => {
-  await mongoose.connect(config.getDbUrl(), {
+  await mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -31,9 +32,8 @@ const run = async () => {
   app.use('/modules', modules());
   app.use('/reviews', reviews());
 
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  app.listen(port, () => {
-    console.log('Server started at http://localhost' + port);
+  app.listen(PORT, () => {
+    console.log('Server started at http://localhost' + PORT);
   });
 };
 
