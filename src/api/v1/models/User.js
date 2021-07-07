@@ -1,12 +1,19 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { nanoid } = require('nanoid');
-const SALT_WORK_FACTOR = 10;
+
 const Schema = mongoose.Schema;
+
+const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new Schema({
   username: {
     type: String,
+    required: true
+  },
+  userSurname: {
+    type: String,
+    required: true
   },
   password: {
     type: String,
@@ -24,6 +31,7 @@ const UserSchema = new Schema({
   },
   phone: {
     type: String,
+    required: true
   },
   email: {
     type: String,
@@ -36,10 +44,7 @@ const UserSchema = new Schema({
       },
       message: 'This user is already registered',
     },
-  },
-  description: {
-    type: String,
-  },
+  }
 });
 
 UserSchema.pre('save', async function (next) {
