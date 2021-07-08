@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    env_file: .env
+    environment:
+      - TZ=Asia/Astan
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    depends_on:
+      - db
+    ports:
+      - 85:8080
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    restart: always
+
+  db:
+    image: mongo:latest
+    container_name: db
+    ports:
+      - 27085:27017
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

@@ -3,10 +3,12 @@
   "info": {
     "version": "1.0.0",
     "title": "Glamping API"
-  }, 
-  "servers": [{
-    "url": "http://localhost:8000"
-  }],
+  },
+  "servers": [
+    {
+      "url": "http://localhost:85"
+    }
+  ],
   "tags": [
     {
       "name": "user"
