@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     ports:
-      - 85:8080
+      - 8000:8080
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
