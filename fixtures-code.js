@@ -47,7 +47,7 @@ const fixApply = db => {
       }
     );
 
-    const [balkash, beskaynar, alakol] = await Location.create(
+    const [balkash, alakol, beskaynar] = await Location.create(
       {
         title: 'Balkash',
         image: ['balkash1.jpeg', 'balkash2.jpeg'],
@@ -62,6 +62,21 @@ const fixApply = db => {
         road: true,
         published: true,
         owner: userUser._id,
+      },
+      {
+        title: 'Alakol',
+        image: ['alakol1.jpeg', 'alakol2.jpeg', 'alakol3.jpeg'],
+        square: '50',
+        description:
+          'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. ' +
+          'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
+        rent: '9000',
+        status: true,
+        electricity: true,
+        water: true,
+        road: true,
+        published: true,
+        owner: testUser._id,
       },
       {
         title: 'Beskaynar',
@@ -79,22 +94,8 @@ const fixApply = db => {
         road: true,
         published: true,
         owner: testUser._id,
-      },
-      {
-        title: 'Alakol',
-        image: ['alakol1.jpeg', 'alakol2.jpeg', 'alakol3.jpeg'],
-        square: '50',
-        description:
-          'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. ' +
-          'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
-        rent: '9000',
-        status: true,
-        electricity: true,
-        water: true,
-        road: true,
-        published: true,
-        owner: testUser._id,
       }
+
     );
 
     const [geokupol4, aleut, yurta] = await Module.create(

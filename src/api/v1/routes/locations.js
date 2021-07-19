@@ -36,6 +36,17 @@ const createRouter = () => {
 
   });
 
+  router.get('/last', async (req, res) => {
+    try {
+      const lastFourLocations = await Location.find()
+        .sort({_id: -1}).limit(4).populate('owner');
+
+      res.send(lastFourLocations);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   router.get("/:id", async (req, res) => {
 
     try {
