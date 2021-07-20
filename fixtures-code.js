@@ -112,7 +112,7 @@ const fixApply = db => {
       }
     );
 
-    const [geokupol4, aleut, yurta] = await Module.create(
+    const [geokupol4, aleut, yurta, belltent] = await Module.create(
       {
         title: 'Геокупол-4',
         type: 'геокупол',
