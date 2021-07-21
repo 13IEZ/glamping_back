@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:85"
+      "url": "http://localhost:8000"
     }
   ],
   "tags": [
@@ -75,9 +75,61 @@
             "$ref": "#/components/schemas/User"
           }
         }
+      },
+      "Location": {
+        "type": "object",
+        "required": ["title", "square", "image", "rent", "description", "status", "electricity", "water", "road"],
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "square": {
+            "type": "number"
+          },
+          "image": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rent": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "electricity": {
+            "type": "boolean"
+          },
+          "water": {
+            "type": "boolean"
+          },
+          "road": {
+            "type": "boolean"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
       }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authentication",
+        "in": "header"
+      }  
     }
   },
+  "security": [{
+    "bearerAuth": []
+  }],
   "paths": {
     "/modules": {
       "get": {
@@ -99,6 +151,238 @@
           }
         }
       }
+    },
+    "/locations": {
+      "get": {
+        "tags": ["location"],
+        "summary": "Get all locations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["location"],
+        "summary": "Post new location",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/locations/last": {
+      "get": {
+        "tags": ["location"],
+        "summary": "Get last 4 locations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/locations/{id}": {
+      "get": {
+        "tags": ["location"],
+        "summary": "Get location by ID",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of location that we want to find",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "put": {
+        "tags": ["location"],
+        "summary": "Put location by ID",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of location that we want to update",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { 
+                    "description": "Updated title of the location",
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "square": {
+                    "type": "number"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "rent": {
+                    "type": "number"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "electricity": {
+                    "type": "boolean"
+                  },
+                  "water": {
+                    "type": "boolean"
+                  },
+                  "road": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["location"],
+        "summary": "Delete location by ID",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of location that we want to delete",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/locations/published/{id}": {
+      "put": {
+        "tags": ["location"],
+        "summary": "Published location by ID",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of location that we want to publish",
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "published": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
+
