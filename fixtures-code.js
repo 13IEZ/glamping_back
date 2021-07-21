@@ -47,7 +47,7 @@ const fixApply = db => {
       }
     );
 
-    const [balkash, beskaynar, alakol, borovoe] = await Location.create(
+    const [balkash, alakol, beskaynar, borovoe] = await Location.create(
       {
         title: 'Balkash',
         image: ['balkash1.jpeg', 'balkash2.jpeg'],
@@ -64,6 +64,21 @@ const fixApply = db => {
         owner: userUser._id,
       },
       {
+        title: 'Alakol',
+        image: ['alakol1.jpeg', 'alakol2.jpeg', 'alakol3.jpeg'],
+        square: '50',
+        description:
+          'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. ' +
+          'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
+        rent: '9000',
+        status: true,
+        electricity: true,
+        water: true,
+        road: true,
+        published: true,
+        owner: testUser._id,
+      },
+      {
         title: 'Beskaynar',
         image: ['beskaynar1.jpeg', 'beskaynar2.jpeg', 'beskaynar3.jpeg'],
         square: '1320',
@@ -73,21 +88,6 @@ const fixApply = db => {
           'длина более -1000 м. Магистральный газ и свет проходят по участку, ' +
           'подводят государственное водоснабжение.',
         rent: '13000',
-        status: true,
-        electricity: true,
-        water: true,
-        road: true,
-        published: true,
-        owner: testUser._id,
-      },
-      {
-        title: 'Alakol',
-        image: ['alakol1.jpeg', 'alakol2.jpeg', 'alakol3.jpeg'],
-        square: '50',
-        description:
-          'Участок на берегу уникального целебного озера Алаколя в поселке Коктума. ' +
-          'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
-        rent: '9000',
         status: true,
         electricity: true,
         water: true,
@@ -110,6 +110,7 @@ const fixApply = db => {
         published: true,
         owner: testUser._id,
       }
+
     );
 
     const [geokupol4, aleut, yurta] = await Module.create(
