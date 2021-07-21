@@ -32,7 +32,8 @@ const createRouter = () => {
 
   router.get('/last', async (req, res) => {
     try {
-      const lastFourModules = await Module.find().sort({_id: -1}).limit(4);
+      const lastFourModules = await Module.find()
+        .sort({_id: -1}).limit(4).populate('factory');
       res.send(lastFourModules);
     } catch (error) {
       res.status(500).send(error);
