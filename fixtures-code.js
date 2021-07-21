@@ -47,7 +47,7 @@ const fixApply = db => {
       }
     );
 
-    const [balkash, alakol, beskaynar] = await Location.create(
+    const [balkash, alakol, beskaynar, borovoe] = await Location.create(
       {
         title: 'Balkash',
         image: ['balkash1.jpeg', 'balkash2.jpeg'],
@@ -88,6 +88,21 @@ const fixApply = db => {
           'длина более -1000 м. Магистральный газ и свет проходят по участку, ' +
           'подводят государственное водоснабжение.',
         rent: '13000',
+        status: true,
+        electricity: true,
+        water: true,
+        road: true,
+        published: true,
+        owner: testUser._id,
+      },
+      {
+        title: 'Borovoe',
+        image: ['borovoe1.jpg', 'borovoe2.jpg'],
+        square: '50',
+        description:
+          'Участок в прекрасном месте Боровое. ' +
+          'В районе автивное развитие инфраструктуры туристической деятельности, от озера 500 метров',
+        rent: '8000',
         status: true,
         electricity: true,
         water: true,
@@ -152,7 +167,23 @@ const fixApply = db => {
         status: true,
         published: true,
         factory: userUser._id,
-      }
+      },
+      {
+        title: 'Белл тент',
+        type: 'тент',
+        image: ['belltent1.jpg', 'belltent2.jpg'],
+        roominess: 3,
+        year: '2021',
+        description: 'Белл тент — это палатка для проживания, путешествий или отдыха. Дизайн белл тента представляет собой простую конструкцию, поддерживающую всю палатку центральным шестом.',
+        number: 2,
+        series: '0008',
+        color: 'white',
+        price: 300000,
+        rent: 4000,
+        status: true,
+        published: true,
+        factory: userUser._id,
+      } 
     );
 
     await Review.create(
