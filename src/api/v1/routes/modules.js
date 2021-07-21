@@ -39,7 +39,7 @@ const createRouter = () => {
     }
   });
 
-  router.get('/:id', auth, async (req, res) => {
+  router.get('/:id', async (req, res) => {
     let module;
     try {
       module = await Module.findById(req.params.id);
