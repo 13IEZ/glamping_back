@@ -1,5 +1,7 @@
 const sortArrAsc = (arr, fieldName) => {
   let result;
+  //`${prop}` для того чтобы устранить ошибку безопасности
+  // Generic Object Injection Sink  security/detect-object-injection
   const prop = fieldName;
   result = arr.sort(function (a, b) {
     if (a[`${prop}`] < b[`${prop}`]) {
