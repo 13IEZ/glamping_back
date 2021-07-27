@@ -19,6 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createRouter = () => {
+  
   router.get('/', async (req, res) => {
     let modules;
     try {
@@ -28,6 +29,32 @@ const createRouter = () => {
       console.log(error);
       res.status(500).send(error);
     }
+  });
+  
+  router.get("/pages", (req, res) => {
+    var page = parseInt(req.query.page) || 0; //for next page pass 1 here
+    var limit = parseInt(req.query.limit) || 3;
+    var query = {};
+    Module.find(query)
+      .sort({ update_at: -1 })
+      .skip(page * limit) //Notice here
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.json(err);
+        }
+        Module.countDocuments(query).exec((count_error, count) => {
+          if (err) {
+            return res.json(count_error);
+          }
+          return res.json({
+            total: count,
+            page: page,
+            pageSize: doc.length,
+            modules: doc
+          });
+        });
+      });
   });
 
   router.get('/last', async (req, res) => {
