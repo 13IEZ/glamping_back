@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const idValidator = require('mongoose-id-validator');
 const Schema = mongoose.Schema;
 
@@ -69,9 +68,6 @@ ModuleSchema.plugin(idValidator, {
   message: "Bad ID value for {PATH}"
 });
 
-ModuleSchema.plugin(mongoosePaginate);
-
 const Module = mongoose.model('Module', ModuleSchema);
 
-Module.paginate().then({});
 module.exports = Module;
