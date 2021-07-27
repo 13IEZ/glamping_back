@@ -32,9 +32,10 @@ const createRouter = () => {
   });
   
   router.get("/pages", (req, res) => {
-    let page = parseInt(req.query.page) || 0; //for next page pass 1 here
-    let limit = parseInt(req.query.limit) || 2
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 2;
     Module.find()
+      .sort({ _id: -1 })
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
@@ -48,10 +49,11 @@ const createRouter = () => {
           return res.send({
             totalItem: count,
             totalPage: count / limit,
-            page: page +1,
+            page: page,
             pageSize: doc.length,
             modules: doc
           });
+          
         });
       });
   });
