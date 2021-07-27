@@ -33,24 +33,22 @@ const createRouter = () => {
   
   router.get("/pages", (req, res) => {
     let page = parseInt(req.query.page) || 0; //for next page pass 1 here
-    let limit = parseInt(req.query.limit) || 3;
-    let query = {};
-    Module.find(query)
-      .sort({ update_at: -1 })
+    let limit = parseInt(req.query.limit) || 2
+    Module.find()
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
         if (err) {
-          return res.json(err);
+          return res.send(err);
         }
-        Module.countDocuments(query).exec((count_error, count) => {
+        Module.estimatedDocumentCount().exec((count_error, count) => {
           if (err) {
-            return res.json(count_error);
+            return res.send(count_error);
           }
-          return res.json({
+          return res.send({
             totalItem: count,
             totalPage: count / limit,
-            page: page,
+            page: page +1,
             pageSize: doc.length,
             modules: doc
           });
