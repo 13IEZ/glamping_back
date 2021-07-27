@@ -48,7 +48,7 @@ const createRouter = () => {
             return res.json(count_error);
           }
           return res.json({
-            total: count,
+            totalItem: count,
             totalPage: count / limit,
             page: page,
             pageSize: doc.length,
