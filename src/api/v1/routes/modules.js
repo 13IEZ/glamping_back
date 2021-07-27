@@ -37,7 +37,7 @@ const createRouter = () => {
     let query = {};
     Module.find(query)
       .sort({ update_at: -1 })
-      .skip(page * limit) //Notice here
+      .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
         if (err) {
@@ -49,6 +49,7 @@ const createRouter = () => {
           }
           return res.json({
             total: count,
+            totalPage: count / limit,
             page: page,
             pageSize: doc.length,
             modules: doc
