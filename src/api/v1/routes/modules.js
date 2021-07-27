@@ -1,3 +1,5 @@
+const { sortArrAsc, sortArrDesc } = require('../../../utils');
+
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -23,7 +25,15 @@ const createRouter = () => {
     let modules;
     try {
       modules = await Module.find();
-      res.send(modules);
+      if (req.query.sort) {
+        if (req.query.order === 'asc') {
+          res.send(sortArrAsc(modules, req.query.sort));
+        } else {
+          res.send(sortArrDesc(modules, req.query.sort));
+        }
+      } else {
+        res.send(modules);
+      }
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -32,9 +42,16 @@ const createRouter = () => {
 
   router.get('/last', async (req, res) => {
     try {
-      const lastFourModules = await Module.find()
-        .sort({_id: -1}).limit(4).populate('factory');
-      res.send(lastFourModules);
+      const lastFourModules = await Module.find().sort({ _id: -1 }).limit(4).populate('factory');
+      if (req.query.sort) {
+        if (req.query.order === 'asc') {
+          res.send(sortArrAsc(lastFourModules, req.query.sort));
+        } else {
+          res.send(sortArrDesc(lastFourModules, req.query.sort));
+        }
+      } else {
+        res.send(lastFourModules);
+      }
     } catch (error) {
       res.status(500).send(error);
     }
