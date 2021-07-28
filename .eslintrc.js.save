@@ -22,6 +22,6 @@ module.exports = {
     'node/prefer-global/url': ['error', 'always'],
     'node/prefer-promises/dns': 'error',
     'node/prefer-promises/fs': 'error',
-    'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
+    'linebreak-style': ['error', 'windows'],
   },
 };
