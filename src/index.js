@@ -17,7 +17,7 @@ const { MONGO_HOSTNAME, MONGO_PORT, MONGO_DB, PORT } = process.env;
 let url;
 let portVar;
 
-console.log(process.platform);
+console.log('xxx');
 
 if (MONGO_HOSTNAME) {
   url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
