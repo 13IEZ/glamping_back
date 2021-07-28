@@ -7,6 +7,7 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/openapi.json');
 
+const categories = require('./api/v1/routes/categories');
 const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
@@ -44,6 +45,7 @@ const run = async () => {
   app.use(express.json());
   app.use(express.static('public'));
 
+  app.use('/categories', categories());
   app.use('/locations', locations());
   app.use('/users', users());
   app.use('/products', products());
