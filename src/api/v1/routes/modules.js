@@ -33,7 +33,7 @@ const createRouter = () => {
   
   router.get("/pages", (req, res) => {
     let page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 2;
+    let limit = parseInt(req.query.limit) || 3;
     Module.find()
       .sort({ _id: -1 })
       .skip(page * limit)
@@ -47,8 +47,8 @@ const createRouter = () => {
             return res.send(count_error);
           }
           return res.send({
-            totalItem: count,
-            totalPage: count / limit,
+            items: count,
+            pages: Math.ceil(count / limit),
             page: page,
             pageSize: doc.length,
             modules: doc
