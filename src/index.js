@@ -3,8 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('../config');
 const app = express();
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/openapi.json');
+
 const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
