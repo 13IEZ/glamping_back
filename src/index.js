@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 const config = require('../config');
 const app = express();
 const swaggerUi = require('swagger-ui-express'),
-      swaggerDocument = require('./swagger/openapi.json');
+  swaggerDocument = require('./swagger/openapi.json');
 const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
-const modules = require('./api/v1/routes/modules');
+const products = require('./api/v1/routes/products');
 const reviews = require('./api/v1/routes/reviews');
 
 const fixApply = require('../fixtures-code');
@@ -42,10 +42,10 @@ const run = async () => {
 
   app.use('/locations', locations());
   app.use('/users', users());
-  app.use('/modules', modules());
+  app.use('/products', products());
   app.use('/reviews', reviews());
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  
+
   app.listen(portVar, () => {
     console.log(`Server started at http://localhost ${portVar}`);
   });

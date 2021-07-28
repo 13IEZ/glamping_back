@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const { nanoid } = require('nanoid');
 const config = require('../../../../config');
-const Module = require('../models/Module');
+const Product = require('../models/Product');
 const auth = require('../middleware/auth');
 
 const storage = multer.diskStorage({
@@ -22,17 +22,17 @@ const upload = multer({ storage });
 
 const createRouter = () => {
   router.get('/', async (req, res) => {
-    let modules;
+    let products;
     try {
-      modules = await Module.find();
+      products = await Product.find();
       if (req.query.sort) {
         if (req.query.order === 'asc') {
-          res.send(sortArrAsc(modules, req.query.sort));
+          res.send(sortArrAsc(products, req.query.sort));
         } else {
-          res.send(sortArrDesc(modules, req.query.sort));
+          res.send(sortArrDesc(products, req.query.sort));
         }
       } else {
-        res.send(modules);
+        res.send(products);
       }
     } catch (error) {
       console.log(error);
@@ -42,15 +42,15 @@ const createRouter = () => {
 
   router.get('/last', async (req, res) => {
     try {
-      const lastFourModules = await Module.find().sort({ _id: -1 }).limit(4).populate('factory');
+      const lastFourProducts = await Product.find().sort({ _id: -1 }).limit(4);
       if (req.query.sort) {
         if (req.query.order === 'asc') {
-          res.send(sortArrAsc(lastFourModules, req.query.sort));
+          res.send(sortArrAsc(lastFourProducts, req.query.sort));
         } else {
-          res.send(sortArrDesc(lastFourModules, req.query.sort));
+          res.send(sortArrDesc(lastFourProducts, req.query.sort));
         }
       } else {
-        res.send(lastFourModules);
+        res.send(lastFourProducts);
       }
     } catch (error) {
       res.status(500).send(error);
@@ -60,7 +60,7 @@ const createRouter = () => {
   router.get('/:id', async (req, res) => {
     let module;
     try {
-      module = await Module.findById(req.params.id);
+      module = await Product.findById(req.params.id);
       res.send(module);
     } catch (error) {
       console.log(error);
@@ -69,7 +69,7 @@ const createRouter = () => {
   });
 
   router.post('/', auth, upload.array('image'), async (req, res) => {
-    const module = new Module(req.body);
+    const module = new Product(req.body);
     if (req.files) {
       module.image = req.files.map(file => file.filename);
     }
@@ -87,7 +87,7 @@ const createRouter = () => {
       if (req.files) {
         module.image = req.files.map(file => file.filename);
       }
-      await Module.updateOne(
+      await Product.updateOne(
         { _id: req.params.id },
         {
           $set: {
@@ -106,8 +106,8 @@ const createRouter = () => {
           },
         }
       );
-      const updatedModule = await Module.findById(req.params.id);
-      res.send(updatedModule);
+      const updatedProduct = await Product.findById(req.params.id);
+      res.send(updatedProduct);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -115,11 +115,11 @@ const createRouter = () => {
 
   router.put('/published/:id', async (req, res) => {
     try {
-      const module = await Module.findById(req.params.id);
+      const module = await Product.findById(req.params.id);
       if (module) {
-        await Module.updateOne({ _id: req.params.id }, { $set: { published: !module.published } });
-        const updatedModule = await Module.findById(req.params.id);
-        res.send(updatedModule);
+        await Product.updateOne({ _id: req.params.id }, { $set: { published: !module.published } });
+        const updatedProduct = await Product.findById(req.params.id);
+        res.send(updatedProduct);
       }
     } catch (error) {
       res.status(400).send(error);
@@ -128,8 +128,8 @@ const createRouter = () => {
 
   router.delete('/:id', auth, async (req, res) => {
     try {
-      const deletedModule = await Module.deleteOne({ _id: req.params.id });
-      res.send(deletedModule);
+      const deletedProduct = await Product.deleteOne({ _id: req.params.id });
+      res.send(deletedProduct);
     } catch (error) {
       res.status(500).send(error);
     }

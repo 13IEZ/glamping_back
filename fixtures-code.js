@@ -4,19 +4,49 @@ const config = require('./config');
 
 const User = require('./src/api/v1/models/User');
 const Location = require('./src/api/v1/models/Location');
-const Module = require('./src/api/v1/models/Module');
+const Product = require('./src/api/v1/models/Product');
+const Category = require('./src/api/v1/models/Category');
 const Review = require('./src/api/v1/models/Review');
 
 const fixApply = db => {
   db.once('open', async () => {
     try {
       await db.dropCollection('locations');
-      await db.dropCollection('modules');
+      await db.dropCollection('products');
       await db.dropCollection('users');
       await db.dropCollection('reviews');
+      await db.dropCollection('categories');
     } catch (err) {
       console.log('Collections were not presented. Skipping drop');
     }
+
+    const [tent, frameHouse, dome, yurt, product, trailer, motorHome, other] = await Category.create(
+      {
+        title: 'Тенты',
+      },
+      {
+        title: 'Каркасные дома',
+      },
+      {
+        title: 'Купола',
+      },
+      {
+        title: 'Юрты',
+      },
+      {
+        title: 'Модули',
+      },
+      {
+        title: 'Трейлеры',
+      },
+      {
+        title: 'Автодома',
+      },
+      {
+        title: 'Другое',
+      }
+    );
+
     const [userUser, adminUser, testUser] = await User.create(
       {
         username: 'user',
@@ -110,80 +140,72 @@ const fixApply = db => {
         published: true,
         owner: testUser._id,
       }
-
     );
 
-    const [geokupol4, aleut, yurta, belltent] = await Module.create(
+    const [geokupol4, aleut, yurta, belltent] = await Product.create(
       {
         title: 'Геокупол-4',
-        type: 'геокупол',
+        categoryId: dome._id,
+        userId: userUser._id,
+        season: 'summer',
+        preview: 'geo1.png',
+        rating: 3,
         image: ['geo1.png', 'geo2.jpeg'],
         roominess: 3,
-        year: '2020',
         description:
           'Геодезический купол (геокупол, геодом) — сферическое архитектурное сооружение, ' +
           'собранное из стержней, образующих геодезическую структуру, благодаря которой сооружение в целом ' +
           'обладает хорошими несущими качествами. Геодезический купол является несущей сетчатой оболочкой.',
-        number: 1,
-        series: '00001',
-        color: 'white',
         price: 1500000,
-        rent: 15000,
-        status: true,
         published: true,
-        factory: userUser._id,
+        factory: 'Компания «Геокупол»',
       },
       {
         title: 'Алеут',
-        type: 'модуль (полимер)',
+        categoryId: dome._id,
+        userId: userUser._id,
+        season: 'all',
+        preview: 'modul1.jpeg',
+        rating: 4,
         image: ['modul1.jpeg', 'modul2.jpeg'],
-        roominess: 3,
-        year: '2021',
+        roominess: 4,
         description:
           'В модуле комфортно жить и зимой, и летом. Композитные материалы стен и ' +
           'уникальная конструкция витража и окон хорошо сохраняют тепло. «Алеут» состоит из двух ' +
           'блоков — примерно по 1,5 тонны каждый. Дом легко разобрать, а затем снова собрать.',
-        number: 2,
-        series: '000022',
-        color: 'white',
         price: 5000000,
-        rent: 25000,
-        status: true,
         published: true,
-        factory: testUser._id,
+        factory: 'Компания «Полимер»',
       },
       {
         title: 'Юрта',
-        type: 'тент',
+        categoryId: yurt._id,
+        userId: adminUser._id,
+        season: 'all',
+        preview: 'yurta1.jpeg',
+        rating: 5,
         image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
-        roominess: 3,
-        year: '2018',
+        roominess: 7,
         description: 'Юрта — переносное каркасное жилище с войлочным покрытием у тюркских и монгольских кочевников.',
-        number: 3,
-        series: '0003',
-        color: 'white',
         price: 399000,
-        rent: 5000,
-        status: true,
         published: true,
-        factory: userUser._id,
+        factory: 'СПК «Жетысу»',
       },
       {
         title: 'Белл тент',
-        type: 'тент',
+        categoryId: tent._id,
+        userId: testUser._id,
+        season: 'summer',
+        preview: 'belltent1.jpg',
+        rating: 2,
         image: ['belltent1.jpg', 'belltent2.jpg'],
         roominess: 3,
-        year: '2021',
-        description: 'Белл тент — это палатка для проживания, путешествий или отдыха. Дизайн белл тента представляет собой простую конструкцию, поддерживающую всю палатку центральным шестом.',
-        number: 2,
-        series: '0008',
-        color: 'white',
+        description:
+          'Белл тент — это палатка для проживания, путешествий или отдыха. Дизайн белл тента представляет собой простую конструкцию, поддерживающую всю палатку центральным шестом.',
         price: 300000,
-        rent: 4000,
-        status: true,
         published: true,
-        factory: userUser._id,
-      } 
+        factory: 'ТОО «TentLand»',
+      }
     );
 
     await Review.create(
@@ -201,7 +223,7 @@ const fixApply = db => {
         date: new Date(2021, 5, 8),
         rating: 4,
         user: userUser._id,
-        module: aleut._id,
+        product: aleut._id,
       },
       {
         pros: 'Комфортабельно',
@@ -209,7 +231,7 @@ const fixApply = db => {
         date: new Date(2021, 6, 7),
         rating: 5,
         user: testUser._id,
-        module: geokupol4._id,
+        product: geokupol4._id,
       },
       {
         cons: 'Нет интернета',
