@@ -11,9 +11,9 @@ const PichSchema = new Schema({
     type: Number,
     required: true
   },
-  categoryId: {
+  productId: {
     type: Schema.Types.ObjectId,
-    ref: 'Category',
+    ref: 'Product',
     required: true
   },
   locationId: {
@@ -45,12 +45,10 @@ const PichSchema = new Schema({
     required: true
   },
   startDate: {
-    type: String,
-    required: true
+    type: String
   },
   endDate: {
-    type: String,
-    required: true
+    type: String
   },
   userId: {
     type: Schema.Types.ObjectId,
@@ -64,6 +62,14 @@ const PichSchema = new Schema({
   published: {
     type: Boolean,
     default: false,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  preview: {
+    type: String,
     required: true
   }
 });
