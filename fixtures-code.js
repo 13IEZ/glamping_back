@@ -7,6 +7,7 @@ const Location = require('./src/api/v1/models/Location');
 const Product = require('./src/api/v1/models/Product');
 const Category = require('./src/api/v1/models/Category');
 const Review = require('./src/api/v1/models/Review');
+const Pich = require('./src/api/v1/models/Pich');
 
 const fixApply = db => {
   db.once('open', async () => {
@@ -16,6 +17,7 @@ const fixApply = db => {
       await db.dropCollection('users');
       await db.dropCollection('reviews');
       await db.dropCollection('categories');
+      await db.dropCollection('pich');
     } catch (err) {
       console.log('Collections were not presented. Skipping drop');
     }
@@ -240,6 +242,79 @@ const fixApply = db => {
         rating: 5,
         user: testUser._id,
         location: alakol._id,
+      }
+    );
+
+    const [orbita, ecohause, jasybay, kolsay] = await Pich.create(
+      {
+        title: 'Орбита',
+        number: 2,
+        productId: geokupol4._id,
+        locationId: balkash._id,
+        roominess: 3,
+        rating: 5,
+        season: 'summer',
+        image: ['geo1.png', 'geo2.jpeg'],
+        preview: 'geo1.png',
+        rent: 60000,
+        free: false,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        userId: userUser._id,
+        description:
+          'Отличное место для восстановления сил и энергии!',
+        published: true
+      },
+      {
+        title: 'Экохаус',
+        number: 1,
+        productId: belltent._id,
+        locationId: alakol._id,
+        roominess: 2,
+        rating: 4,
+        season: 'summer',
+        image: ['belltent1.jpg', 'belltent2.jpg'],
+        preview: 'belltent1.jpg',
+        rent: 50000,
+        free: true,
+        userId: testUser._id,
+        description:
+          'Проведите неповторимые выходные в самом лоне природы!',
+        published: true
+      },
+      {
+        title: 'Жасыбай',
+        number: 3,
+        productId: yurta._id,
+        locationId: jasybay._id,
+        roominess: 2,
+        rating: 4,
+        season: 'summer',
+        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
+        preview: 'yurta1.jpeg',
+        rent: 80000,
+        free: true,
+        userId: testUser._id,
+        description:
+          'Красота гор и озера, все у ваших ног!',
+        published: true
+      },
+      {
+        title: 'Кольсай',
+        number: 3,
+        productId: yurta._id,
+        locationId: jasybay._id,
+        roominess: 2,
+        rating: 5,
+        season: 'summer',
+        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
+        preview: 'yurta1.jpeg',
+        rent: 75000,
+        free: true,
+        userId: testUser._id,
+        description:
+          'Звезды,горы и посиделки у костра!',
+        published: true
       }
     );
 
