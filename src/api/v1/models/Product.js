@@ -45,7 +45,7 @@ const ProductSchema = new Schema({
     required: true,
   },
   price: {
-    type: Schema.Types.Decimal128,
+    type: String,
     required: true,
   },
   published: {
