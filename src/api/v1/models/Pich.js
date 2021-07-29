@@ -74,4 +74,4 @@ PichSchema.plugin(idValidator, {
 
 const Pich = mongoose.model('Pich', PichSchema);
 
-pich.exports = Pich;
+module.exports = Pich;
