@@ -60,7 +60,7 @@ const createRouter = () => {
             pages: Math.ceil(count / limit),
             page: page,
             pageSize: doc.length,
-            modules: doc,
+            products: doc,
           });
         });
       });
