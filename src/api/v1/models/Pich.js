@@ -11,9 +11,9 @@ const PichSchema = new Schema({
     type: Number,
     required: true
   },
-  categoryId: {
+  productId: {
     type: Schema.Types.ObjectId,
-    ref: 'Category',
+    ref: 'Product',
     required: true
   },
   locationId: {
@@ -45,12 +45,10 @@ const PichSchema = new Schema({
     required: true
   },
   startDate: {
-    type: String,
-    required: true
+    type: String
   },
   endDate: {
-    type: String,
-    required: true
+    type: String
   },
   userId: {
     type: Schema.Types.ObjectId,
@@ -65,6 +63,14 @@ const PichSchema = new Schema({
     type: Boolean,
     default: false,
     required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  preview: {
+    type: String,
+    required: true
   }
 });
 
@@ -74,4 +80,4 @@ PichSchema.plugin(idValidator, {
 
 const Pich = mongoose.model('Pich', PichSchema);
 
-pich.exports = Pich;
+module.exports = Pich;
