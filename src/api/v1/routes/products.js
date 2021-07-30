@@ -52,7 +52,7 @@ const createRouter = () => {
   router.get('/pages', (req, res) => {
     let page = parseInt(req.query.page) || 0;
     let limit = parseInt(req.query.limit) || 3;
-    Module.find()
+    Product.find()
       .sort({_id: -1})
       .skip(page * limit)
       .limit(limit)
@@ -60,7 +60,7 @@ const createRouter = () => {
         if (err) {
           return res.send(err);
         }
-        Module.estimatedDocumentCount().exec((count_error, count) => {
+        Product.estimatedDocumentCount().exec((count_error, count) => {
           if (err) {
             return res.send(count_error);
           }

@@ -5,10 +5,10 @@ const sortArrAsc = (arr, fieldName) => {
   const prop = fieldName;
   if (fieldName === 'price') {
     result = arr.sort(function (a, b) {
-      if (Number(a.price.toString()) < Number(b.price.toString())) {
+      if (Number(a.price) < Number(b.price)) {
         return -1;
       }
-      if (Number(a.price.toString()) > Number(b.price.toString())) {
+      if (Number(a.price) > Number(b.price)) {
         return 1;
       }
       return 0;
@@ -33,10 +33,10 @@ const sortArrDesc = (arr, fieldName) => {
   const prop = fieldName;
   if (fieldName === 'price') {
     result = arr.sort(function (a, b) {
-      if (Number(a.price.toString()) < Number(b.price.toString())) {
+      if (Number(a.price) < Number(b.price)) {
         return 1;
       }
-      if (Number(a.price.toString()) > Number(b.price.toString())) {
+      if (Number(a.price) > Number(b.price)) {
         return -1;
       }
       return 0;
