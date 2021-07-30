@@ -245,7 +245,7 @@ const fixApply = db => {
       }
     );
 
-    const [orbita, ecohause, jasybay, kolsay] = await Pich.create(
+    const [orbita, ecohause, borovoelux, beskaynarlux] = await Pich.create(
       {
         title: 'Орбита',
         number: 2,
@@ -283,10 +283,10 @@ const fixApply = db => {
         published: true
       },
       {
-        title: 'Жасыбай',
+        title: 'Боровое Люкс',
         number: 3,
         productId: yurta._id,
-        locationId: jasybay._id,
+        locationId: borovoe._id,
         roominess: 2,
         rating: 4,
         season: 'summer',
@@ -300,10 +300,10 @@ const fixApply = db => {
         published: true
       },
       {
-        title: 'Кольсай',
+        title: 'Бескайнар Люкс',
         number: 3,
         productId: yurta._id,
-        locationId: jasybay._id,
+        locationId: beskaynar._id,
         roominess: 2,
         rating: 5,
         season: 'summer',
