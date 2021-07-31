@@ -17,7 +17,7 @@ const fixApply = db => {
       await db.dropCollection('users');
       await db.dropCollection('reviews');
       await db.dropCollection('categories');
-      await db.dropCollection('pich');
+      await db.dropCollection('piches');
     } catch (err) {
       console.log('Collections were not presented. Skipping drop');
     }
