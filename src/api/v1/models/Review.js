@@ -31,9 +31,9 @@ const ReviewSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Location"
   },
-  module: {
+  product: {
     type: Schema.Types.ObjectId,
-    ref: "Module"
+    ref: "Product"
   }
 });
 
