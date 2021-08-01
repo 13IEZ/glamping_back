@@ -21,8 +21,6 @@ const { MONGO_HOSTNAME, MONGO_PORT, MONGO_DB, PORT } = process.env;
 let url;
 let portVar;
 
-console.log('xxxx');
-
 if (MONGO_HOSTNAME) {
   url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
   portVar = PORT;
@@ -36,7 +34,6 @@ const run = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    validateBeforeSave: false,
     useCreateIndex: true,
   });
 

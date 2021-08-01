@@ -18,7 +18,7 @@ const createRouter = () => {
     try {
       const user = new User(req.body);
       user.generateToken();
-      await user.save();
+      await user.save({validateBeforeSave: false});
       res.send(user);
     } catch (err) {
       res.status(400).send(err);
