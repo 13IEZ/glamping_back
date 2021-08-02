@@ -9,12 +9,12 @@ const createRouter = () => {
   router.get("/", async (req, res) => {
 
     try{
-        if(req.query) {
-          const reviews = await Review.find(req.query).populate('user');
+        if(req.query.product) {
+          const reviews = await Review.find(req.query).populate('user', 'username');
           return res.send(reviews);  
         }
 
-        const reviews = await Review.find();
+        const reviews = await Review.find().populate('user', 'username');
         res.send(reviews);
     } catch(e) {
         res.sendStatus(500);
