@@ -7,6 +7,10 @@ const LocationSchema = new Schema({
     type: String,
     required: true
   },
+  coords: {
+    type: Array,
+    required: true
+  },
   image: [{
     type: String,
     required: true
