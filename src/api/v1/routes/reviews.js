@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth');
+const { countDocuments } = require('../models/Review');
 const Review = require('../models/Review');
 
 const router = express.Router();
@@ -19,6 +20,33 @@ const createRouter = () => {
     } catch(e) {
         res.sendStatus(500);
     }
+  });
+
+  router.get('/pages', (req, res) => {
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 2;
+    let productId = req.query.product;
+    Review.find({product: productId})
+      .populate('user')
+      .sort({_id: -1})
+      .skip(page * limit)
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.send(err);
+        }
+        Review.estimatedDocumentCount().exec((count_error) => {
+          if (err) {
+            return res.send(count_error);
+          }
+          return res.send({
+            items: doc.length*limit,
+            pages: Math.ceil(doc.length),
+            page: page,
+            reviews: doc,
+          });
+        });
+      });
   });
 
   router.post("/", auth, async (req, res) => {
