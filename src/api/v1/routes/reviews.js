@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const { countDocuments } = require('../models/Review');
+const {countDocuments} = require('../models/Review');
 const Review = require('../models/Review');
 
 const router = express.Router();
@@ -9,16 +9,16 @@ const createRouter = () => {
 
   router.get("/", async (req, res) => {
 
-    try{
-        if(req.query.product) {
-          const reviews = await Review.find(req.query).populate('user', 'username');
-          return res.send(reviews);  
-        }
+    try {
+      if (req.query.product) {
+        const reviews = await Review.find(req.query).populate('user', 'username');
+        return res.send(reviews);
+      }
 
-        const reviews = await Review.find().populate('user', 'username');
-        res.send(reviews);
-    } catch(e) {
-        res.sendStatus(500);
+      const reviews = await Review.find().populate('user', 'username');
+      res.send(reviews);
+    } catch (e) {
+      res.sendStatus(500);
     }
   });
 
@@ -40,7 +40,7 @@ const createRouter = () => {
             return res.send(count_error);
           }
           return res.send({
-            items: doc.length*limit,
+            items: doc.length * limit,
             pages: Math.ceil(doc.length),
             page: page,
             reviews: doc,
@@ -50,28 +50,29 @@ const createRouter = () => {
   });
 
   router.post("/", auth, async (req, res) => {
-    if(!req.body.module && !req.body.location || req.body.module && req.body.location)
-    return res.send("Error")
-    
+
+    if (!req.body.product && !req.body.location || req.body.product && req.body.location) {
+      return res.send("Error")
+    }
+
+    const reqBody = {...req.body, date: Date.now(), user: req.user._id};
+
     try {
-      const reqBody = {...req.body};
-      reqBody.user = req.user;
       const review = new Review(reqBody);
-        try {
-          await review.save();
-        }
-        catch (error) {
-          return res.status(500).send(error);
-        }
-        res.send(review);
-    } catch (error) {
-        res.status(400).send(error);
+      try {
+        await review.save();
+      } catch (error) {
+        return res.status(500).send(error);
       }
+      res.send({message: 'Review was successfully created'});
+    } catch (error) {
+      res.status(400).send(error);
+    }
   });
-  
+
   router.delete('/:id', auth, async (req, res) => {
     try {
-      await Review.deleteOne({ _id: req.params.id });
+      await Review.deleteOne({_id: req.params.id});
       res.send({message: 'Review was deleted successfully'});
     } catch (error) {
       res.status(500).send(error);
