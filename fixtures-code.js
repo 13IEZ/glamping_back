@@ -379,6 +379,27 @@ const fixApply = db => {
         product: aleut._id,
       },
       {
+        review: 'Nice',
+        date: new Date(2021, 5, 8),
+        rating: 4,
+        user: testUser._id,
+        product: aleut._id,
+      },
+      {
+        review: 'Amazing',
+        date: new Date(2021, 5, 8),
+        rating: 4,
+        user: userUser._id,
+        product: aleut._id,
+      },
+      {
+        review: 'Excellent',
+        date: new Date(2021, 5, 8),
+        rating: 4,
+        user: userUser._id,
+        product: aleut._id,
+      },
+      {
         pros: 'Комфортабельно',
         review: 'Все было здорово, рекомендую',
         date: new Date(2021, 6, 7),
