@@ -567,53 +567,56 @@ const fixApply = db => {
       },
     );
 
-    const [orbita, ecohause, borovoelux, beskaynarlux] = await Pich.create(
-      {
-        title: 'Боровое Тент',
-        description: 'Отличное место для восстановления сил и энергии!',
-        image: ['geo1.png', 'geo2.jpeg'],
-        number: 1,
-        locationId: borovoe._id,
-        free: false,
-        published: true,
-        preview: 'geo1.png',
-        rent: 50000
-     },
-
-     {
-        title: 'Боровое Геокупол',
-        description: 'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
-        image: ['belltent1.jpg', 'belltent2.jpg'],
-        number: 2,
-        locationId: borovoe._id,
-        free: true,
-        published: true,
-        preview: 'belltent1.jpg',
-        rent: 60000
-     },
-     {
-        title: 'Боровое Юрта',
-        description: 'Красота гор и озера, все у ваших ног!',
-        image: ['yurta1.jpeg', 'yurta2.jpeg'],
-        number: 3,
-        locationId: borovoe._id,
-        free: true,
-        published: true,
-        preview: 'yurta1.jpeg',
-        rent: 40000
-     },
-     {
-        title: 'Боровое Юрта Люкс',
-        description: 'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
-        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
-        number: 4,
-        locationId: borovoe._id,
-        free: true,
-        published: true,
-        preview: 'yurta2.jpeg',
-        rent: 40000
-     }
-    );
+  const [pichgeo, pichtent, pichyurta, pichyurtalux] = await Pich.create(
+    {
+      title: 'Боровое Тент',
+      description:
+        'Отличное место для восстановления сил и энергии!',
+      image: ['geo1.png', 'geo2.jpeg'],
+      number: 1,
+      locationId: borovoe._id,
+      free: false,
+      published: true,
+      rent: 50000,
+      preview: 'geo1.png'
+    },
+    {
+      title: 'Боровое Геокупол',
+      description:
+        'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+      image: ['belltent1.jpg', 'belltent2.jpg'],
+      number: 2,
+      locationId: borovoe._id,
+      free: true,
+      published: true,
+      rent: 40000,
+      preview: 'belltent1.jpg'
+    },
+    {
+      title: 'Боровое Юрта',
+      description:
+        'Красота гор и озера, все у ваших ног!',
+      image: ['yurta1.jpeg', 'yurta2.jpeg'],
+      number: 3,
+      locationId: borovoe._id,
+      free: true,
+      published: true,
+      rent: 30000,
+      preview: 'yurta1.jpeg'
+    },
+    {
+      title: 'Боровое Юрта Люкс',
+      description:
+        'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+      image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
+      number: 4,
+      locationId: borovoe._id,
+      free: true,
+      published: true,
+      rent: 30000,
+      preview: 'yurta2.jpeg'
+    }
+   );
 
     const [borovoetent, borovoegeo, borovoeyurta, borovoeyurtalux] = await Accommodation.create(
       {

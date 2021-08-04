@@ -31,17 +31,18 @@ const AccommodationSchema = new Schema({
    endDate: {
       type: String
    },
-   //Цена для бронирования
+   //rent price
    rent: {
       type: String,
       required: true
    },
-   //Модуль убран, дача закрыта
+   //Booked - false, free - true
    status: {
       type: Boolean,
       default: true,
       required: true
    },
+   //tourists's ID
    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

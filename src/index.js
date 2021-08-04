@@ -13,6 +13,7 @@ const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
 const reviews = require('./api/v1/routes/reviews');
+const accommodations = require('./api/v1/routes/accommodations');
 
 const fixApply = require('../fixtures-code');
 
@@ -49,6 +50,7 @@ const run = async () => {
   app.use('/users', users());
   app.use('/products', products());
   app.use('/reviews', reviews());
+  app.use('/accommodations', accommodations());
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.listen(portVar, () => {
