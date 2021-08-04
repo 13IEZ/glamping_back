@@ -51,6 +51,15 @@ const AccommodationSchema = new Schema({
    preview: {
       type: String,
       required: true
+   },
+   published: {
+      type: Boolean,
+      default: false,
+      required: true,
+   },
+   rating: {
+      type: Number,
+      required: true,
    }
 });
 

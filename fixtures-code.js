@@ -631,7 +631,8 @@ const fixApply = db => {
         status: false,
         userId: userUser._id,
         published: true,
-        preview: 'borovoetent1.jpeg'
+        preview: 'borovoetent1.jpeg',
+        rating: 5
       },
 
       {
@@ -647,7 +648,8 @@ const fixApply = db => {
         status: false,
         userId: userUser._id,
         published: true,
-        preview: 'borovoegeo1.jpeg'
+        preview: 'borovoegeo1.jpeg',
+        rating: 4
       },
       {
         title: 'Боровое Юрта',
@@ -662,7 +664,8 @@ const fixApply = db => {
         status: false,
         userId: userUser._id,
         published: true,
-        preview: 'borovoeyurta2.jpeg'
+        preview: 'borovoeyurta2.jpeg',
+        rating: 4
       },
       {
         title: 'Боровое Юрта Люкс',
@@ -677,7 +680,8 @@ const fixApply = db => {
         status: false,
         userId: userUser._id,
         published: true,
-        preview: 'borovoeyurtalux1.jpeg'
+        preview: 'borovoeyurtalux1.jpeg',
+        rating: 5
       }
     );
 
