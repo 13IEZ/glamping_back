@@ -6,6 +6,8 @@ const Product = require('./src/api/v1/models/Product');
 const Category = require('./src/api/v1/models/Category');
 const Review = require('./src/api/v1/models/Review');
 const Pich = require('./src/api/v1/models/Pich');
+const Accommodation = require('./src/api/v1/models/Accommodation');
+
 
 const fixApply = db => {
   db.once('open', async () => {
@@ -16,6 +18,7 @@ const fixApply = db => {
       await db.dropCollection('reviews');
       await db.dropCollection('categories');
       await db.dropCollection('piches');
+      await db.dropCollection('accommodations');
     } catch (err) {
       console.log('Collections were not presented. Skipping drop');
     }
@@ -372,32 +375,139 @@ const fixApply = db => {
         location: balkash._id,
       },
       {
-        review: 'Хороший модуль, просторный',
-        date: new Date(2021, 5, 8),
-        rating: 4,
+        pros: 'Отличная природа',
+        cons: 'Далеко от дороги, много комаров',
+        review: 'В целом отдых удался на славу! Природа, озеро, а закат просто волшебный!',
+        date: new Date(2021, 7, 6),
+        rating: 5,
         user: userUser._id,
-        product: aleut._id,
+        location: balkash._id,
       },
       {
-        review: 'Nice',
-        date: new Date(2021, 5, 8),
-        rating: 4,
+        pros: 'Пустошь',
+        cons: 'Далеко от дороги, много комаров',
+        review: 'Так себе место! В основном пустошь и озеро!',
+        date: new Date(2021, 7, 6),
+        rating: 3,
+        user: userUser._id,
+        location: balkash._id,
+      },
+      {
+        pros: 'Ужасное место',
+        cons: 'Далеко от дороги, много комаров',
+        review: 'Ужасное место! Голая земля',
+        date: new Date(2021, 7, 6),
+        rating: 2,
+        user: userUser._id,
+        location: balkash._id,
+      },
+      {  
+        pros: 'Отличная природа',
+        cons: 'Нет интернета',
+        review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
+        date: new Date(2021, 9, 8),
+        rating: 5,
         user: testUser._id,
+        location: alakol._id,
+      },
+      {  
+        pros: 'Нет света и подъезда',
+        cons: 'Нет интернета',
+        review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
+        date: new Date(2021, 8, 8),
+        rating: 2,
+        user: testUser._id,
+        location: alakol._id,
+      },
+      {  
+        pros: 'Отличная природа',
+        cons: 'Нет интернета',
+        review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
+        date: new Date(2021, 7, 8),
+        rating: 3,
+        user: testUser._id,
+        location: alakol._id,
+      },
+      {  
+        pros: 'Отличная природа',
+        cons: 'Нет интернета',
+        review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
+        date: new Date(2021, 8, 8),
+        rating: 5,
+        user: testUser._id,
+        location: alakol._id,
+      },
+      {
+        pros: 'Хороший модуль',
+        review: 'Хороший модуль, просторный',
+        date: new Date(2021, 4, 8),
+        rating: 5,
+        user: userUser._id,
         product: aleut._id,
       },
       {
-        review: 'Amazing',
+        pros: 'Комфортабельно',
+        review: 'Отличный модуль, комфортабельный',
         date: new Date(2021, 5, 8),
         rating: 4,
         user: userUser._id,
         product: aleut._id,
       },
       {
-        review: 'Excellent',
-        date: new Date(2021, 5, 8),
+        pros: 'Тесно, неудобно',
+        review: 'Модуль, тесный, неудобный',
+        date: new Date(2021, 2, 8),
+        rating: 2,
+        user: userUser._id,
+        product: aleut._id,
+      },
+      {
+        pros: 'Удобно',
+        review: 'Терпимо, своих денег стоит',
+        date: new Date(2021, 6, 8),
         rating: 4,
         user: userUser._id,
         product: aleut._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Отличная вещь для летнего отдыха',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: userUser._id,
+        product: geokupol4._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Все было здорово, рекомендую',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: userUser._id,
+        product: geokupol4._id,
+      },
+      {
+        pros: 'Тесно, неудобно',
+        review: 'Модуль, тесный, неудобныйо',
+        date: new Date(2021, 6, 7),
+        rating: 2,
+        user: userUser._id,
+        product: geokupol4._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Неудобный в сборке и разборке',
+        date: new Date(2021, 6, 7),
+        rating: 3,
+        user: userUser._id,
+        product: geokupol4._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Отличная вещь для летнего отдыха',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: testUser._id,
+        product: yurta._id,
       },
       {
         pros: 'Комфортабельно',
@@ -405,88 +515,166 @@ const fixApply = db => {
         date: new Date(2021, 6, 7),
         rating: 5,
         user: testUser._id,
-        product: geokupol4._id,
+        product: yurta._id,
       },
       {
-        cons: 'Нет интернета',
-        review: 'Все хорошо, нам понравилось, был бы еще интернет, вообще бы там остались жить',
-        date: new Date(2021, 8, 8),
+        pros: 'Комфортабельно',
+        review: 'Вместительная, удобная в эксплуатации, стоит своих денего',
+        date: new Date(2021, 6, 7),
         rating: 5,
         user: testUser._id,
-        location: alakol._id,
-      }
+        product: yurta._id,
+      },
+      {
+        pros: 'Неудобная',
+        review: 'Неудобная в сборке и разборке',
+        date: new Date(2021, 6, 7),
+        rating: 3,
+        user: testUser._id,
+        product: yurta._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Отличная вещь для летнего отдыха',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: testUser._id,
+        product: belltent._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Все было здорово, рекомендую',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: testUser._id,
+        product: belltent._id,
+      },
+      {
+        pros: 'Комфортабельно',
+        review: 'Вместительный, удобный в эксплуатации, стоит своих денего',
+        date: new Date(2021, 6, 7),
+        rating: 5,
+        user: testUser._id,
+        product: belltent._id,
+      },
+      {
+        pros: 'Неудобный',
+        review: 'Неудобный в сборке и разборке',
+        date: new Date(2021, 6, 7),
+        rating: 1,
+        user: testUser._id,
+        product: belltent._id,
+      },
     );
 
     const [orbita, ecohause, borovoelux, beskaynarlux] = await Pich.create(
       {
-        title: 'Орбита',
-        number: 2,
-        productId: geokupol4._id,
-        locationId: balkash._id,
-        roominess: 3,
-        rating: 5,
-        season: 'summer',
+        title: 'Боровое Тент',
+        description: 'Отличное место для восстановления сил и энергии!',
         image: ['geo1.png', 'geo2.jpeg'],
-        preview: 'geo1.png',
-        rent: 60000,
+        number: 1,
+        locationId: borovoe._id,
         free: false,
+        published: true,
+        preview: 'geo1.png',
+        rent: 50000
+     },
+
+     {
+        title: 'Боровое Геокупол',
+        description: 'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+        image: ['belltent1.jpg', 'belltent2.jpg'],
+        number: 2,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        preview: 'belltent1.jpg',
+        rent: 60000
+     },
+     {
+        title: 'Боровое Юрта',
+        description: 'Красота гор и озера, все у ваших ног!',
+        image: ['yurta1.jpeg', 'yurta2.jpeg'],
+        number: 3,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        preview: 'yurta1.jpeg',
+        rent: 40000
+     },
+     {
+        title: 'Боровое Юрта Люкс',
+        description: 'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
+        number: 4,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        preview: 'yurta2.jpeg',
+        rent: 40000
+     }
+    );
+
+    const [borovoetent, borovoegeo, borovoeyurta, borovoeyurtalux] = await Accommodation.create(
+      {
+        title: 'Боровое Тент',
+        description: 'Отличное место для восстановления сил и энергии!',
+        image: ['borovoetent1.jpeg', 'borovoetent2.jpeg', 'borovoetent3.jpeg', 'borovoetent4.jpeg'],
+        productId: geokupol4._id,
+        pichId: pichgeo._id,
         startDate: '01/08/21',
         endDate: '15/08/21',
+        rent: '10000',
+        status: false,
         userId: userUser._id,
-        description:
-          'Отличное место для восстановления сил и энергии!',
-        published: true
+        published: true,
+        preview: 'borovoetent1.jpeg'
       },
+
       {
-        title: 'Экохаус',
+        title: 'Боровое Геокупол',
+        description: 'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+        image: ['borovoegeo1.jpeg', 'borovoegeo2.jpeg', 'borovoegeo3.jpeg', 'borovoegeo4.jpeg'],
         number: 1,
         productId: belltent._id,
-        locationId: alakol._id,
-        roominess: 2,
-        rating: 4,
-        season: 'summer',
-        image: ['belltent1.jpg', 'belltent2.jpg'],
-        preview: 'belltent1.jpg',
-        rent: 50000,
-        free: true,
-        userId: testUser._id,
-        description:
-          'Проведите неповторимые выходные в самом лоне природы!',
-        published: true
+        pichId: pichtent._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '15000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoegeo1.jpeg'
       },
       {
-        title: 'Боровое Люкс',
+        title: 'Боровое Юрта',
+        description: 'Красота гор и озера, все у ваших ног!',
+        image: ['borovoeyurta1.jpeg', 'borovoeyurta2.jpeg', 'borovoeyurta3.jpeg', 'borovoeyurta4.jpeg'],
         number: 3,
         productId: yurta._id,
-        locationId: borovoe._id,
-        roominess: 2,
-        rating: 4,
-        season: 'summer',
-        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
-        preview: 'yurta1.jpeg',
-        rent: 80000,
-        free: true,
-        userId: testUser._id,
-        description:
-          'Красота гор и озера, все у ваших ног!',
-        published: true
+        pichId: pichyurta._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '45000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoeyurta2.jpeg'
       },
       {
-        title: 'Бескайнар Люкс',
+        title: 'Боровое Юрта Люкс',
+        description: 'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+        image: ['borovoeyurtalux1.jpeg', 'borovoeyurtalux2.jpeg', 'borovoeyurtalux3.jpeg', 'borovoeyurtalux4.jpeg'],
         number: 3,
         productId: yurta._id,
-        locationId: beskaynar._id,
-        roominess: 2,
-        rating: 5,
-        season: 'summer',
-        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
-        preview: 'yurta1.jpeg',
-        rent: 75000,
-        free: true,
-        userId: testUser._id,
-        description:
-          'Звезды,горы и посиделки у костра!',
-        published: true
+        pichId: pichyurtalux._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '95000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoeyurtalux1.jpeg'
       }
     );
 

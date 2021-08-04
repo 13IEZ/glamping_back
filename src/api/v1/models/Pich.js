@@ -11,25 +11,10 @@ const PichSchema = new Schema({
     type: Number,
     required: true
   },
-  productId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true
-  },
   locationId: {
     type: Schema.Types.ObjectId,
     ref: 'Location',
     required: true
-  },
-  roominess: {
-    type: Number,
-    required: true
-  },
-  season: {
-    type: String,
-    enum: ['winter', 'summer', 'all'],
-    default: 'all',
-    required: true  
   },
   image: [{
     type: String,
@@ -44,17 +29,6 @@ const PichSchema = new Schema({
     default: true,
     required: true
   },
-  startDate: {
-    type: String
-  },
-  endDate: {
-    type: String
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
   description: {
     type: String,
     required: true
@@ -62,10 +36,6 @@ const PichSchema = new Schema({
   published: {
     type: Boolean,
     default: false,
-    required: true
-  },
-  rating: {
-    type: Number,
     required: true
   },
   preview: {
