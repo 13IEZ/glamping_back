@@ -53,8 +53,9 @@ const ProductSchema = new Schema({
     default: false,
     required: true,
   },
-  factory: {
-    type: String,
+  factoryId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Factory',
     required: true,
   },
 });
