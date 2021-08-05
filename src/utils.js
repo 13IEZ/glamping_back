@@ -1,3 +1,13 @@
+const filterArr = (arr, fieldName, fieldValue) => {
+  let result;
+  const prop = fieldName;
+  if (fieldName === 'roominess' && fieldValue > 4) {
+    return arr.filter(arrItem => arrItem[`${prop}`] > 4);
+  }
+  result = arr.filter(arrItem => arrItem[`${prop}`] == fieldValue);
+  return result;
+};
+
 const sortArrAsc = (arr, fieldName) => {
   let result;
   //`${prop}` для того чтобы устранить ошибку безопасности
@@ -55,4 +65,4 @@ const sortArrDesc = (arr, fieldName) => {
   return result;
 };
 
-module.exports = { sortArrAsc, sortArrDesc };
+module.exports = { filterArr, sortArrDesc, sortArrAsc };
