@@ -9,6 +9,7 @@ const swaggerDocument = require('./swagger/openapi.json');
 
 const piches = require('./api/v1/routes/piches');
 const categories = require('./api/v1/routes/categories');
+const factories = require('./api/v1/routes/factories');
 const locations = require('./api/v1/routes/locations');
 const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
@@ -46,6 +47,7 @@ const run = async () => {
 
   app.use('/piches', piches());
   app.use('/categories', categories());
+  app.use('/factories', factories());
   app.use('/locations', locations());
   app.use('/users', users());
   app.use('/products', products());

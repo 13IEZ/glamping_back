@@ -1,10 +1,10 @@
-const {sortArrAsc, sortArrDesc} = require('../../../utils');
+const { filterArr, sortArrAsc, sortArrDesc } = require('../../../utils');
 
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const {nanoid} = require('nanoid');
+const { nanoid } = require('nanoid');
 const config = require('../../../../config');
 const Product = require('../models/Product');
 const auth = require('../middleware/auth');
@@ -18,22 +18,23 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({storage});
+const upload = multer({ storage });
 
 const createRouter = () => {
   router.get('/', async (req, res) => {
-    let products;
     try {
-      products = await Product.find();
+      let products = await Product.find();
+      if (req.query.filter) {
+        products = filterArr(products, req.query.filter, req.query._id);
+      }
       if (req.query.sort) {
         if (req.query.order === 'asc') {
-          res.send(sortArrAsc(products, req.query.sort));
+          products = sortArrAsc(products, req.query.sort);
         } else {
-          res.send(sortArrDesc(products, req.query.sort));
+          products = sortArrDesc(products, req.query.sort);
         }
-      } else {
-        res.send(products);
       }
+      res.send(products);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -42,7 +43,7 @@ const createRouter = () => {
 
   router.get('/category/:id', async (req, res) => {
     try {
-      const products = await Product.find({categoryId: req.params.id});
+      const products = await Product.find({ categoryId: req.params.id });
       res.send(products);
     } catch (error) {
       res.status(500).send(error);
@@ -53,7 +54,7 @@ const createRouter = () => {
     let page = parseInt(req.query.page) || 0;
     let limit = parseInt(req.query.limit) || 3;
     Product.find()
-      .sort({_id: -1})
+      .sort({ _id: -1 })
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
@@ -77,7 +78,7 @@ const createRouter = () => {
 
   router.get('/last', async (req, res) => {
     try {
-      const lastFourProducts = await Product.find().sort({_id: -1}).limit(4);
+      const lastFourProducts = await Product.find().sort({ _id: -1 }).limit(4);
       if (req.query.sort) {
         if (req.query.order === 'asc') {
           res.send(sortArrAsc(lastFourProducts, req.query.sort));
@@ -118,12 +119,12 @@ const createRouter = () => {
 
   router.put('/:id', auth, upload.array('image'), async (req, res) => {
     try {
-      const module = {...req.body};
+      const module = { ...req.body };
       if (req.files) {
         module.image = req.files.map(file => file.filename);
       }
       await Product.updateOne(
-        {_id: req.params.id},
+        { _id: req.params.id },
         {
           $set: {
             title: module.title,
@@ -152,7 +153,7 @@ const createRouter = () => {
     try {
       const module = await Product.findById(req.params.id);
       if (module) {
-        await Product.updateOne({_id: req.params.id}, {$set: {published: !module.published}});
+        await Product.updateOne({ _id: req.params.id }, { $set: { published: !module.published } });
         const updatedProduct = await Product.findById(req.params.id);
         res.send(updatedProduct);
       }
@@ -163,7 +164,7 @@ const createRouter = () => {
 
   router.delete('/:id', auth, async (req, res) => {
     try {
-      const deletedProduct = await Product.deleteOne({_id: req.params.id});
+      const deletedProduct = await Product.deleteOne({ _id: req.params.id });
       res.send(deletedProduct);
     } catch (error) {
       res.status(500).send(error);
