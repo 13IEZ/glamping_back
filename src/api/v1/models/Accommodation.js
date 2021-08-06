@@ -21,11 +21,6 @@ const AccommodationSchema = new Schema({
       ref: 'Pich',
       required: true
    },
-   locationId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Location',
-      required: true
-   },
    image: [{
       type: String,
       required: true

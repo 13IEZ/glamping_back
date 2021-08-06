@@ -19,17 +19,24 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 const createRouter = () => {
-  router.get('/', async (req, res) => {
+  //get all accommodations related to current location
+  router.get('/:locationId', async (req, res) => {
     try {
-      if(req.query.location) {
-        const accommodations = await Accommodation.find({locationId: req.query.location});
-        return res.send(accommodations);  
-      }
-
-      const accommodations = await Accommodation.find();
-      res.send(accommodations);
-    } catch (error) {
-      res.status(500).send(error);
+      await Accommodation.find().
+      populate({
+         path: "pichId", populate: { path: "locationId" }
+      }).exec((err, accommodations) => {
+         accommodations = accommodations.filter(accommodation => {
+            return accommodation.pichId.locationId.equals(req.params.locationId);
+         });
+         if (accommodations) {
+            res.send(accommodations);
+         } else {
+            res.sendStatus(404);
+         }
+        })
+      }catch(error) {
+    res.status(500).send(error)
     }
   });
 
