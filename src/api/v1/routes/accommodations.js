@@ -20,12 +20,15 @@ const upload = multer({storage});
 
 const createRouter = () => {
   router.get('/', async (req, res) => {
-    let accommodations;
     try {
-      accommodations = await Accommodation.find();
+      if(req.query.location) {
+        const accommodations = await Accommodation.find({locationId: req.query.location});
+        return res.send(accommodations);  
+      }
+
+      const accommodations = await Accommodation.find();
       res.send(accommodations);
     } catch (error) {
-      console.log(error);
       res.status(500).send(error);
     }
   });
