@@ -48,9 +48,7 @@ const createRouter = () => {
   });
 
   router.get("/:id", async (req, res) => {
-
     try {
-
       const location = await Location.findById(req.params.id)
         .populate('owner');
 
