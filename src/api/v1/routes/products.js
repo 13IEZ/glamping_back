@@ -99,9 +99,10 @@ const createRouter = () => {
       const product = await Product.findById(req.params.id);
       const reviews = await Review.find({product: req.params.id});
       const quantity = reviews.length;
-      const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0)
+      const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0);
       const average = Math.round(sumRating/quantity);
       product.rating = average;
+      product.reviewsQuantity = quantity;
       res.send(product);
     } catch (error) {
       console.log(error);

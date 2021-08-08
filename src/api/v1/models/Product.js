@@ -58,6 +58,9 @@ const ProductSchema = new Schema({
     ref: 'Factory',
     required: true,
   },
+  reviewsQuantity: {
+    type: Number
+  }
 });
 
 ProductSchema.plugin(idValidator, {
