@@ -19,6 +19,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 const createRouter = () => {
+
+  router.get('/last', async (req, res) => {
+    try {
+      const lastFourAccommodations = await Accommodation.find();
+        res.send(lastFourAccommodations);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   //get all accommodations related to current location
   router.get('/:locationId', async (req, res) => {
     try {
