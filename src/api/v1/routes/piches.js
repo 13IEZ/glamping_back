@@ -28,6 +28,16 @@ const createRouter = () => {
   router.get('/', async (req, res) => {
 
     try {
+
+      if (req.query.locationId) {
+        const piches = await Pich.find({locationId: req.query.locationId})
+          .populate('locationId');
+
+        if (!piches) return res.sendStatus(404);
+
+        return res.send(piches);
+      }
+
       const piches = await Pich.find().populate('locationId');
       res.send(piches);
     } catch (error) {
