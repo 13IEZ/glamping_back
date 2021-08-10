@@ -7,6 +7,7 @@ const path = require('path');
 const { nanoid } = require('nanoid');
 const config = require('../../../../config');
 const Product = require('../models/Product');
+const Review = require('../models/Review');
 const auth = require('../middleware/auth');
 
 const storage = multer.diskStorage({
@@ -94,10 +95,15 @@ const createRouter = () => {
   });
 
   router.get('/:id', async (req, res) => {
-    let module;
     try {
-      module = await Product.findById(req.params.id);
-      res.send(module);
+      const product = await Product.findById(req.params.id);
+      const reviews = await Review.find({product: req.params.id});
+      const quantity = reviews.length;
+      const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0);
+      const average = Math.round(sumRating/quantity);
+      product.rating = average;
+      product.reviewsQuantity = quantity;
+      res.send(product);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
