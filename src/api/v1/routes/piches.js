@@ -46,19 +46,6 @@ const createRouter = () => {
 
   });
 
-  router.get('/last', async (req, res) => {
-
-    // TODO Now we get last four accommodations for glamping,
-    //  if its functionality already done so we need to get rid off this router
-
-    try {
-      const lastFourPiches = await Pich.find().sort({_id: -1}).limit(4);
-      res.send(lastFourPiches);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
-
   router.get('/:id', async (req, res) => {
     try {
       const pich = await Pich.findById(req.params.id)
