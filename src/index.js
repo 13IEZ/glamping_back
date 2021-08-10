@@ -14,6 +14,7 @@ const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
 const reviews = require('./api/v1/routes/reviews');
 const accommodations = require('./api/v1/routes/accommodations');
+const piches = require('./api/v1/routes/piches');
 
 const fixApply = require('../fixtures-code');
 
@@ -43,7 +44,8 @@ const run = async () => {
   app.use(cors());
   app.use(express.json());
   app.use(express.static('public'));
-
+  
+  app.use('/piches', piches());
   app.use('/categories', categories());
   app.use('/factories', factories());
   app.use('/locations', locations());
