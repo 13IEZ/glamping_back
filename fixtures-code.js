@@ -722,6 +722,123 @@ const fixApply = db => {
       }
     );
 
+    const [pichgeo, pichtent, pichyurta, pichyurtalux] = await Pich.create(
+      {
+        title: 'Боровое Тент',
+        description:
+          'Отличное место для восстановления сил и энергии!',
+        image: ['geo1.png', 'geo2.jpeg'],
+        number: 1,
+        locationId: borovoe._id,
+        free: false,
+        published: true,
+        rent: 50000,
+        preview: 'geo1.png'
+      },
+      {
+        title: 'Боровое Геокупол',
+        description:
+          'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+        image: ['belltent1.jpg', 'belltent2.jpg'],
+        number: 2,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        rent: 40000,
+        preview: 'belltent1.jpg'
+      },
+      {
+        title: 'Боровое Юрта',
+        description:
+          'Красота гор и озера, все у ваших ног!',
+        image: ['yurta1.jpeg', 'yurta2.jpeg'],
+        number: 3,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        rent: 30000,
+        preview: 'yurta1.jpeg'
+      },
+      {
+        title: 'Боровое Юрта Люкс',
+        description:
+          'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+        image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
+        number: 4,
+        locationId: borovoe._id,
+        free: true,
+        published: true,
+        rent: 30000,
+        preview: 'yurta2.jpeg'
+      }
+     );
+
+    const [borovoetent, borovoegeo, borovoeyurta, borovoeyurtalux] = await Accommodation.create(
+      {
+        title: 'Боровое Тент',
+        description: 'Отличное место для восстановления сил и энергии!',
+        image: ['borovoetent1.jpeg', 'borovoetent2.jpeg', 'borovoetent3.jpeg', 'borovoetent4.jpeg'],
+        productId: geokupol4._id,
+        pichId: pichgeo._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '10000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoetent1.jpeg',
+        rating: 5
+      },
+      {
+        title: 'Боровое Геокупол',
+        description: 'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+        image: ['borovoegeo1.jpeg', 'borovoegeo2.jpeg', 'borovoegeo3.jpeg', 'borovoegeo4.jpeg'],
+        number: 1,
+        productId: belltent._id,
+        pichId: pichtent._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '15000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoegeo1.jpeg',
+        rating: 4
+      },
+      {
+        title: 'Боровое Юрта',
+        description: 'Красота гор и озера, все у ваших ног!',
+        image: ['borovoeyurta1.jpeg', 'borovoeyurta2.jpeg', 'borovoeyurta3.jpeg', 'borovoeyurta4.jpeg'],
+        number: 3,
+        productId: yurta._id,
+        pichId: pichyurta._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '45000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoeyurta2.jpeg',
+        rating: 4
+      },
+      {
+        title: 'Боровое Юрта Люкс',
+        description: 'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+        image: ['borovoeyurtalux1.jpeg', 'borovoeyurtalux2.jpeg', 'borovoeyurtalux3.jpeg', 'borovoeyurtalux4.jpeg'],
+        number: 3,
+        productId: yurta._id,
+        pichId: pichyurtalux._id,
+        startDate: '01/08/21',
+        endDate: '15/08/21',
+        rent: '95000',
+        status: false,
+        userId: userUser._id,
+        published: true,
+        preview: 'borovoeyurtalux1.jpeg',
+        rating: 5
+      }
+    );
+  
     await Review.create(
       {
         pros: 'Отличная природа',
@@ -923,124 +1040,131 @@ const fixApply = db => {
         user: testUser._id,
         product: belltent._id,
       },
-    );
-
-  const [pichgeo, pichtent, pichyurta, pichyurtalux] = await Pich.create(
-    {
-      title: 'Боровое Тент',
-      description:
-        'Отличное место для восстановления сил и энергии!',
-      image: ['geo1.png', 'geo2.jpeg'],
-      number: 1,
-      locationId: borovoe._id,
-      free: false,
-      published: true,
-      rent: 50000,
-      preview: 'geo1.png'
-    },
-    {
-      title: 'Боровое Геокупол',
-      description:
-        'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
-      image: ['belltent1.jpg', 'belltent2.jpg'],
-      number: 2,
-      locationId: borovoe._id,
-      free: true,
-      published: true,
-      rent: 40000,
-      preview: 'belltent1.jpg'
-    },
-    {
-      title: 'Боровое Юрта',
-      description:
-        'Красота гор и озера, все у ваших ног!',
-      image: ['yurta1.jpeg', 'yurta2.jpeg'],
-      number: 3,
-      locationId: borovoe._id,
-      free: true,
-      published: true,
-      rent: 30000,
-      preview: 'yurta1.jpeg'
-    },
-    {
-      title: 'Боровое Юрта Люкс',
-      description:
-        'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
-      image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
-      number: 4,
-      locationId: borovoe._id,
-      free: true,
-      published: true,
-      rent: 30000,
-      preview: 'yurta2.jpeg'
-    }
-   );
-
-    const [borovoetent, borovoegeo, borovoeyurta, borovoeyurtalux] = await Accommodation.create(
       {
-        title: 'Боровое Тент',
-        description: 'Отличное место для восстановления сил и энергии!',
-        image: ['borovoetent1.jpeg', 'borovoetent2.jpeg', 'borovoetent3.jpeg', 'borovoetent4.jpeg'],
-        productId: geokupol4._id,
-        pichId: pichgeo._id,
-        startDate: '01/08/21',
-        endDate: '15/08/21',
-        rent: '10000',
-        status: false,
-        userId: userUser._id,
-        published: true,
-        preview: 'borovoetent1.jpeg',
-        rating: 5
-      },
-
-      {
-        title: 'Боровое Геокупол',
-        description: 'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
-        image: ['borovoegeo1.jpeg', 'borovoegeo2.jpeg', 'borovoegeo3.jpeg', 'borovoegeo4.jpeg'],
-        number: 1,
-        productId: belltent._id,
-        pichId: pichtent._id,
-        startDate: '01/08/21',
-        endDate: '15/08/21',
-        rent: '15000',
-        status: false,
-        userId: userUser._id,
-        published: true,
-        preview: 'borovoegeo1.jpeg',
-        rating: 4
+        pros: 'Отлично провели выходные',
+        cons: 'Далеко от дороги, много комаров',
+        review: 'В целом отдых удался на славу! Природа, озеро, а закат просто волшебный!',
+        date: new Date(2021, 7, 6),
+        rating: 5,
+        user: userUser._id,
+        accommodation: borovoetent._id,
       },
       {
-        title: 'Боровое Юрта',
-        description: 'Красота гор и озера, все у ваших ног!',
-        image: ['borovoeyurta1.jpeg', 'borovoeyurta2.jpeg', 'borovoeyurta3.jpeg', 'borovoeyurta4.jpeg'],
-        number: 3,
-        productId: yurta._id,
-        pichId: pichyurta._id,
-        startDate: '01/08/21',
-        endDate: '15/08/21',
-        rent: '45000',
-        status: false,
-        userId: userUser._id,
-        published: true,
-        preview: 'borovoeyurta2.jpeg',
-        rating: 4
+        pros: 'Как-то не очень',
+        review: 'Тесно и жарко было',
+        date: new Date(2021, 6, 7),
+        rating: 1,
+        user: testUser._id,
+        accommodation: borovoetent._id,
       },
       {
-        title: 'Боровое Юрта Люкс',
-        description: 'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
-        image: ['borovoeyurtalux1.jpeg', 'borovoeyurtalux2.jpeg', 'borovoeyurtalux3.jpeg', 'borovoeyurtalux4.jpeg'],
-        number: 3,
-        productId: yurta._id,
-        pichId: pichyurtalux._id,
-        startDate: '01/08/21',
-        endDate: '15/08/21',
-        rent: '95000',
-        status: false,
-        userId: userUser._id,
-        published: true,
-        preview: 'borovoeyurtalux1.jpeg',
-        rating: 5
-      }
+        pros: 'Всем все понравилось',
+        review: 'Прикольно так',
+        date: new Date(2021, 7, 6),
+        rating: 5,
+        user: userUser._id,
+        accommodation: borovoetent._id,
+      },
+      {
+        pros: 'Тихо, красиво, комфортно',
+        review: 'Рекомендую',
+        date: new Date(2021, 7, 6),
+        rating: 5,
+        user: userUser._id,
+        accommodation: borovoetent._id,
+      },
+      {
+        pros: 'Очень даже неплохо',
+        review: 'Хорошее место',
+        date: new Date(2021, 7, 4),
+        rating: 4,
+        user: userUser._id,
+        accommodation: borovoegeo._id,
+      },
+      {
+        pros: 'Тихое место',
+        review: 'Все понравилось, комфортно',
+        date: new Date(2021, 6, 1),
+        rating: 3,
+        user: testUser._id,
+        accommodation: borovoegeo._id,
+      },
+      {
+        pros: 'Вдали от шума',
+        review: 'Очень романтично',
+        date: new Date(2021, 6, 1),
+        rating: 4,
+        user: testUser._id,
+        accommodation: borovoegeo._id,
+      },
+      {
+        review: 'Красивые места',
+        date: new Date(2021, 6, 1),
+        rating: 4,
+        user: testUser._id,
+        accommodation: borovoegeo._id,
+      },
+      {
+        review: 'Детям понравилось',
+        date: new Date(2021, 8, 4),
+        rating: 4,
+        user: userUser._id,
+        accommodation: borovoeyurta._id,
+      },
+      {
+        pros: 'Недалеко от озера',
+        review: 'Еще приедем',
+        date: new Date(2021, 6, 1),
+        rating: 4,
+        user: testUser._id,
+        accommodation: borovoeyurta._id,
+      },
+      {
+        pros: 'Много красивых мест',
+        review: 'Вернемся обязательно',
+        date: new Date(2021, 6, 1),
+        rating: 5,
+        user: testUser._id,
+        accommodation: borovoeyurta._id,
+      },
+      {
+        review: 'Понравилось',
+        date: new Date(2021, 6, 1),
+        rating: 4,
+        user: testUser._id,
+        accommodation: borovoeyurta._id,
+      },
+      {
+        review: 'Отдохнули хорошо',
+        date: new Date(2021, 6, 4),
+        rating: 5,
+        user: userUser._id,
+        accommodation: borovoeyurtalux._id,
+      },
+      {
+        cons: 'Вода холодная, купаться невозможно',
+        review: 'Надо брать теплую одежду на вечер',
+        date: new Date(2021, 4, 7),
+        rating: 3,
+        user: testUser._id,
+        accommodation: borovoeyurtalux._id,
+      },
+      {
+        cons: 'Комары замучали',
+        review: 'Берите спрей от насекомых',
+        date: new Date(2021, 4, 7),
+        rating: 3,
+        user: testUser._id,
+        accommodation: borovoeyurtalux._id,
+      },
+      {
+        cons: 'Скучно',
+        review: 'Заняться было не чем',
+        date: new Date(2021, 4, 7),
+        rating: 3,
+        user: testUser._id,
+        accommodation: borovoeyurtalux._id,
+      },
     );
 
     db.close();

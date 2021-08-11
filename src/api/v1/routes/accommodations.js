@@ -5,6 +5,7 @@ const path = require('path');
 const {nanoid} = require('nanoid');
 const config = require('../../../../config');
 const Accommodation = require('../models/Accommodation');
+const Review = require('../models/Review');
 const auth = require('../middleware/auth');
 
 const storage = multer.diskStorage({
@@ -30,14 +31,14 @@ const createRouter = () => {
   });
 
   //get all accommodations related to current location
-  router.get('/:locationId', async (req, res) => {
+  router.get('/', async (req, res) => {
     try {
       await Accommodation.find().
       populate({
          path: "pichId", populate: { path: "locationId" }
       }).exec((err, accommodations) => {
          accommodations = accommodations.filter(accommodation => {
-            return accommodation.pichId.locationId.equals(req.params.locationId);
+            return accommodation.pichId.locationId.equals(req.query.locationId);
          });
          if (accommodations) {
             res.send(accommodations);
@@ -53,9 +54,20 @@ const createRouter = () => {
   router.get('/:id', async (req, res) => {
     let accommodation;
     try {
+      
       accommodation = await Accommodation.findById(req.params.id)
       .populate({path: 'productId', 
-       populate: {path: 'categoryId'}});
+       populate: {path: 'categoryId'}})
+      .populate({
+        path: "pichId", populate: { path: "locationId" }
+     });
+
+      const reviews = await Review.find({accommodation: req.params.id});
+      const quantity = reviews.length;
+      const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0);
+      const average = Math.round(sumRating/quantity);
+      accommodation.rating = average;
+      accommodation.reviewsQuantity = quantity;
       res.send(accommodation);
     } catch (error) {
       console.log(error);
