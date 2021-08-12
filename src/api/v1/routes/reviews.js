@@ -13,6 +13,10 @@ const createRouter = () => {
       if (req.query.product) {
         const reviews = await Review.find(req.query).populate('user', 'username');
         return res.send(reviews);
+      } else 
+      if (req.query.accommodation) {
+        const reviews = await Review.find(req.query).populate('user', 'username');
+        return res.send(reviews);
       }
 
       const reviews = await Review.find().populate('user', 'username');
@@ -25,28 +29,54 @@ const createRouter = () => {
   router.get('/pages', (req, res) => {
     let page = parseInt(req.query.page) || 0;
     let limit = parseInt(req.query.limit) || 2;
-    let productId = req.query.product;
-    Review.find({product: productId})
-      .populate('user')
-      .sort({_id: -1})
-      .skip(page * limit)
-      .limit(limit)
-      .exec((err, doc) => {
-        if (err) {
-          return res.send(err);
-        }
-        Review.estimatedDocumentCount().exec((count_error) => {
+      if(req.query.product) {
+        let productId = req.query.product;
+        Review.find({product: productId})
+        .populate('user')
+        .sort({_id: -1})
+        .skip(page * limit)
+        .limit(limit)
+        .exec((err, doc) => {
           if (err) {
-            return res.send(count_error);
+            return res.send(err);
           }
-          return res.send({
-            items: doc.length * limit,
-            pages: Math.ceil(doc.length),
-            page: page,
-            reviews: doc,
+          Review.estimatedDocumentCount().exec((count_error) => {
+            if (err) {
+              return res.send(count_error);
+            }
+            return res.send({
+              items: doc.length * limit,
+              pages: Math.ceil(doc.length),
+              page: page,
+              reviews: doc,
+            });
           });
         });
-      });
+    } else
+    if(req.query.accommodation) {
+      let accommodationId = req.query.accommodation;
+      Review.find({accommodation: accommodationId})
+        .populate('user')
+        .sort({_id: -1})
+        .skip(page * limit)
+        .limit(limit)
+        .exec((err, doc) => {
+          if (err) {
+            return res.send(err);
+          }
+          Review.estimatedDocumentCount().exec((count_error) => {
+            if (err) {
+              return res.send(count_error);
+            }
+            return res.send({
+              items: doc.length * limit,
+              accommodationReviewPages: Math.ceil(doc.length),
+              page: page,
+              accommodationReviews: doc,
+            });
+          });
+        });
+    }
   });
 
   router.post("/", auth, async (req, res) => {

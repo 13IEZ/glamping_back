@@ -60,6 +60,9 @@ const AccommodationSchema = new Schema({
    rating: {
       type: Number,
       required: true,
+   },
+   reviewsQuantity: {
+      type: Number
    }
 });
 

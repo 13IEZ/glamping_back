@@ -34,6 +34,10 @@ const ReviewSchema = new Schema({
   product: {
     type: Schema.Types.ObjectId,
     ref: "Product"
+  },
+  accommodation: {
+    type: Schema.Types.ObjectId,
+    ref: "Accommodation"
   }
 });
 
