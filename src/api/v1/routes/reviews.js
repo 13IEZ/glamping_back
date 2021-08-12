@@ -61,7 +61,6 @@ const createRouter = () => {
         .skip(page * limit)
         .limit(limit)
         .exec((err, doc) => {
-          console.log(doc)
           if (err) {
             return res.send(err);
           }
