@@ -38,7 +38,7 @@ const createRouter = () => {
 
   router.get('/pages', (req, res) => {
     let page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 16;
+    let limit = parseInt(req.query.limit) || 15;
     Location.find()
       .sort({ _id: -1 })
       .skip(page * limit)
