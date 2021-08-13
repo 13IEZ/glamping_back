@@ -36,6 +36,32 @@ const createRouter = () => {
 
   });
 
+  router.get('/pages', (req, res) => {
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 16;
+    Location.find()
+      .sort({ _id: -1 })
+      .skip(page * limit)
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.send(err);
+        }
+        Location.estimatedDocumentCount().exec((count_error, count) => {
+          if (err) {
+            return res.send(count_error);
+          }
+          return res.send({
+            items: count,
+            pages: Math.ceil(count / limit),
+            page: page,
+            pageSize: doc.length,
+            locations: doc,
+          });
+        });
+      });
+  });
+
   router.get('/last', async (req, res) => {
     try {
       const lastFourLocations = await Location.find()
