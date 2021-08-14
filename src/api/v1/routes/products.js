@@ -7,8 +7,10 @@ const path = require('path');
 const { nanoid } = require('nanoid');
 const config = require('../../../../config');
 const Product = require('../models/Product');
+const ProductFilter = require('../models/ProductFilter');
 const Review = require('../models/Review');
 const auth = require('../middleware/auth');
+const filter = require('../middleware/filter');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -51,92 +53,42 @@ const createRouter = () => {
     }
   });
 
-  router.get('/filters/:queryStr', async (req, res) => {
-    const getOptionValue = (option, key) => {
-      const priceSort = { priceAsc: 'asc', priceDesc: 'desc' };
-      const roominessFilter = { roominess1: '1', roominess2: '2', roominess3: '3', roominess4: '4', roominess5: '5' };
-      const seasonFilter = { seasonSummer: 'summer', seasonWinter: 'winter', seasonAll: 'all' };
-      switch (option) {
-        case 'price':
-          return priceSort[`${key}`];
-        case 'roominess':
-          return roominessFilter[`${key}`];
-        case 'season':
-          return seasonFilter[`${key}`];
-        case 'factory':
-          return key.slice(key.indexOf('_') + 1);
-        case 'category':
-          return key.slice(key.indexOf('_') + 1);
-        default:
-          break;
-      }
-    };
-
-    const optionsArr = ['price', 'roominess', 'season', 'factory', 'category'];
-    const queryArr = JSON.parse(req.params.queryStr);
-
-    try {
-      let prevFilterResult = await Product.find({});
-      let currentFiltered = [];
-      let totalFiltered = [];
-
-      optionsArr
-        .filter(option => option !== 'price')
-        .forEach(option => {
-          let key;
-          if (option === 'category' || option === 'factory') {
-            key = option + 'Id';
-          } else {
-            key = option;
-          }
-
-          const queryFilteredArr = queryArr.filter(item => item.includes(option));
-
-          if (queryFilteredArr.length > 0) {
-            totalFiltered = [];
-            queryFilteredArr.forEach(item => {
-              currentFiltered = filterArr(prevFilterResult, key, getOptionValue(option, item));
-              totalFiltered = totalFiltered.concat(currentFiltered);
-            });
-            prevFilterResult = [...totalFiltered];
-          }
-        });
-
-      optionsArr
-        .filter(option => option === 'price')
-        .forEach(option => {
-          totalFiltered = [...prevFilterResult];
-          const queryFilteredArr = queryArr.filter(item => item.includes(option));
-          if (queryFilteredArr.length > 0) {
-            queryFilteredArr.forEach(item => {
-              if (getOptionValue(option, item) === 'asc') {
-                totalFiltered = sortArrAsc(totalFiltered, 'price');
-              } else {
-                totalFiltered = sortArrDesc(totalFiltered, 'price');
-              }
-            });
-          }
-        });
-
-      res.send(totalFiltered);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
-    }
-  });
-
-  router.get('/pages', (req, res) => {
-    let page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 3;
-    Product.find()
-      .sort({ _id: -1 })
+  router.get('/filters', filter, async (req, res) => {
+    let page = 0;
+    let limit = 3;
+    ProductFilter.find()
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
         if (err) {
           return res.send(err);
         }
-        Product.estimatedDocumentCount().exec((count_error, count) => {
+        ProductFilter.estimatedDocumentCount().exec((count_error, count) => {
+          if (err) {
+            return res.send(count_error);
+          }
+          return res.send({
+            items: count,
+            pages: Math.ceil(count / limit),
+            page: page,
+            pageSize: doc.length,
+            products: doc,
+          });
+        });
+      });
+  });
+
+  router.get('/pages', filter, (req, res) => {
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 3;
+    ProductFilter.find()
+      .skip(page * limit)
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.send(err);
+        }
+        ProductFilter.estimatedDocumentCount().exec((count_error, count) => {
           if (err) {
             return res.send(count_error);
           }
