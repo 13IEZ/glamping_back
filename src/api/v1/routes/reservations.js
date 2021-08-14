@@ -62,7 +62,7 @@ const createRouter = () => {
       const reservation = await Reservation.findById(req.params.id)
         .populate(['accommodation', 'pich', 'user']);
 
-      const isOwnerOfReservation = req.user._id.toString() === reservation.user.toString();
+      const isOwnerOfReservation = req.user._id.toString() === reservation.user._id.toString();
 
       if (isOwnerOfReservation) {
 
@@ -92,7 +92,7 @@ const createRouter = () => {
       const reservation = await Reservation.findById(req.params.id)
         .populate(['accommodation', 'pich', 'user']);
 
-      const isOwnerOfReservation = req.user._id.toString() === reservation.user.toString();
+      const isOwnerOfReservation = req.user._id.toString() === reservation.user._id.toString();
 
       if (isOwnerOfReservation) {
         await Reservation.findByIdAndDelete(reservation._id);
