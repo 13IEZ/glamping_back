@@ -1,0 +1,111 @@
+const express = require('express');
+
+const Reservation = require("../models/Reservation");
+const auth = require("../middleware/auth");
+
+const router = express.Router();
+
+const createRouter = () => {
+
+  router.get('/', async (req, res) => {
+
+    try {
+
+      if (req.query.user) {
+        const reservations = await Reservation.find({user: req.query.user})
+          .populate(['accommodation', 'pich', 'user']);
+
+        if (!reservations) return res.sendStatus(404);
+
+        return res.send(reservations);
+      }
+
+
+      const reservations = await Reservation.find()
+        .populate(['accommodation', 'pich', 'user']);
+      console.log(reservations);
+      res.send(reservations);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+
+  router.get('/:id', async (req, res) => {
+    try {
+      const reservation = await Reservation.findById(req.params.id)
+        .populate(['accommodation', 'pich', 'user']);
+
+      if (!reservation) return res.sendStatus(404);
+
+      res.send(reservation);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+
+  router.post('/', auth, async (req, res) => {
+    try {
+      const reqBody = {...req.body};
+      const reservation = new Reservation(reqBody);
+      await reservation.save();
+      res.send({message: 'Reservation was successfully created'});
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
+
+
+  router.put('/:id', auth, async (req, res) => {
+    try {
+      const reservation = await Reservation.findById(req.params.id)
+        .populate(['accommodation', 'pich', 'user']);
+
+      const isOwnerOfReservation = req.user._id.toString() === reservation.user.toString();
+
+      if (isOwnerOfReservation) {
+
+        const newReservation = {
+          ...reservation,
+          startDate: req.body.startDate,
+          endDate: req.body.endDate
+        };
+
+        await Reservation.findByIdAndUpdate(req.params.id, newReservation);
+
+        const updatedReservation = await Reservation.findById(req.params.id);
+        res.send(updatedReservation);
+
+      } else {
+        return res.status(403).send({message: "This reservation do not belong to you"})
+      }
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+  router.delete('/:id', auth, async (req, res) => {
+    try {
+
+      const reservation = await Reservation.findById(req.params.id)
+        .populate(['accommodation', 'pich', 'user']);
+
+      const isOwnerOfReservation = req.user._id.toString() === reservation.user.toString();
+
+      if (isOwnerOfReservation) {
+        await Reservation.findByIdAndDelete(reservation._id);
+        return res.send({message: "Reservation was successfully deleted"});
+      } else {
+        return res.status(403).send({message: "This reservation do not belong to you"})
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+  return router;
+};
+
+module.exports = createRouter;
