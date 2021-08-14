@@ -122,7 +122,7 @@ const createRouter = () => {
 
   router.get('/:id', async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
+      const product = await Product.findById(req.params.id).populate('factoryId');
       const reviews = await Review.find({ product: req.params.id });
       const quantity = reviews.length;
       const sumRating = reviews.reduce(function (a, b) {
