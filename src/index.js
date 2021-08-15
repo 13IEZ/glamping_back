@@ -7,7 +7,6 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/openapi.json');
 
-const reservations = require('./api/v1/routes/reservations');
 const categories = require('./api/v1/routes/categories');
 const factories = require('./api/v1/routes/factories');
 const locations = require('./api/v1/routes/locations');
