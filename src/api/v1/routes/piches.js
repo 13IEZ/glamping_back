@@ -85,7 +85,6 @@ const createRouter = () => {
   router.put('/:id', [upload.array('image'), auth], async (req, res) => {
 
     try {
-
       const pich = await Pich.findById(req.params.id)
         .populate({path: 'locationId', populate: {path: 'owner'}});
 
@@ -93,7 +92,7 @@ const createRouter = () => {
 
       if (isOwnerOfPich) {
 
-        const newPich = {...req.body};
+        const newPich = {...req.body, locationId: pich.locationId};
         if (req.files) newPich.image = req.files.map(file => file.filename);
 
         await Pich.findByIdAndUpdate(req.params.id, newPich);
