@@ -8,6 +8,7 @@ const Review = require('./src/api/v1/models/Review');
 const Pich = require('./src/api/v1/models/Pich');
 const Accommodation = require('./src/api/v1/models/Accommodation');
 const Factory = require('./src/api/v1/models/Factory');
+const Reservation = require('./src/api/v1/models/Reservation');
 
 const fixApply = db => {
   db.once('open', async () => {
@@ -20,6 +21,7 @@ const fixApply = db => {
       await db.dropCollection('piches');
       await db.dropCollection('accommodations');
       await db.dropCollection('factories');
+      await db.dropCollection('reservations');
     } catch (err) {
       console.log('Collections were not presented. Skipping drop');
     }
@@ -1522,6 +1524,65 @@ const fixApply = db => {
         rating: 3,
         user: testUser._id,
         accommodation: borovoeyurtalux._id,
+      }
+    );
+
+    const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv] = await Reservation.create(
+      {
+        accommodation: borovoetent._id,
+        pich: pichgeo._id,
+        startDate: '2021-09-03',
+        endDate: '2021-09-10',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoetent._id,
+        pich: pichgeo._id,
+        startDate: '2021-08-25',
+        endDate: '2021-08-30',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoegeo._id,
+        pich: pichtent._id,
+        startDate: '2021-08-27',
+        endDate: '2021-09-05',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoegeo._id,
+        pich: pichtent._id,
+        startDate: '2021-09-10',
+        endDate: '2021-09-20',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurta._id,
+        pich: pichyurta._id,
+        startDate: '2021-08-10',
+        endDate: '2021-08-25',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurta._id,
+        pich: pichyurta._id,
+        startDate: '2021-09-02',
+        endDate: '2021-09-10',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurtalux._id,
+        pich: pichyurtalux._id,
+        startDate: '2021-08-28',
+        endDate: '2021-09-16',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurtalux._id,
+        pich: pichyurtalux._id,
+        startDate: '2021-09-20',
+        endDate: '2021-09-25',
+        user: userUser._id,
       }
     );
 
