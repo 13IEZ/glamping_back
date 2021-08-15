@@ -12,6 +12,8 @@ const Review = require('../models/Review');
 const auth = require('../middleware/auth');
 const filter = require('../middleware/filter');
 
+const PRODUCT_PAGE_COUNT = 6;
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, config.uploadPath);
@@ -55,7 +57,7 @@ const createRouter = () => {
 
   router.get('/filters', filter, async (req, res) => {
     let page = 0;
-    let limit = 3;
+    let limit = PRODUCT_PAGE_COUNT;
     ProductFilter.find()
       .skip(page * limit)
       .limit(limit)
@@ -80,7 +82,7 @@ const createRouter = () => {
 
   router.get('/pages', filter, (req, res) => {
     let page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 3;
+    let limit = parseInt(req.query.limit) || PRODUCT_PAGE_COUNT;
     ProductFilter.find()
       .skip(page * limit)
       .limit(limit)
