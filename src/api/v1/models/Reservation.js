@@ -9,8 +9,7 @@ const ReservationSchema = new Schema({
   },
   pich: {
     type: Schema.Types.ObjectId,
-    ref: 'Pich',
-    required: true
+    ref: 'Pich'
   },
   user: {
     type: Schema.Types.ObjectId,

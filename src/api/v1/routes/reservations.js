@@ -19,6 +19,20 @@ const createRouter = () => {
     }
   });
 
+  router.post("/", async (req, res) => {
+    try {
+      const reservation = new Reservation(req.body);
+      try {
+        await reservation.save({validateBeforeSave: false});
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+      res.send({message: 'Reservation was successfully created'});
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
+
   return router;
 };
 
