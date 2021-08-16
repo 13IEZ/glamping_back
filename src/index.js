@@ -45,7 +45,8 @@ const run = async () => {
   app.use(cors());
   app.use(express.json());
   app.use(express.static('public'));
-  
+
+  app.use('/reservations', reservations());
   app.use('/piches', piches());
   app.use('/categories', categories());
   app.use('/factories', factories());
