@@ -1,5 +1,4 @@
 const express = require('express');
-
 const Reservation = require("../models/Reservation");
 const auth = require("../middleware/auth");
 
@@ -10,26 +9,42 @@ const createRouter = () => {
   router.get('/', async (req, res) => {
 
     try {
-
-      if (req.query.user) {
-        const reservations = await Reservation.find({user: req.query.user})
-          .populate(['accommodation', 'pich', 'user']);
-
+      if (req.query.accommodation) {
+        const reservations = await Reservation.find({accommodation: req.query.accommodation});
         if (!reservations) return res.sendStatus(404);
-
         return res.send(reservations);
-      }
+      } else
+      if (req.query.user) {
+      const reservations = await Reservation.find({user: req.query.user})
+        .populate(['accommodation', 'pich', 'user']);
 
+      if (!reservations) return res.sendStatus(404);
+
+      return res.send(reservations);
+      }
 
       const reservations = await Reservation.find()
         .populate(['accommodation', 'pich', 'user']);
-      console.log(reservations);
       res.send(reservations);
     } catch (error) {
       res.status(500).send(error);
     }
   });
 
+  router.post("/", auth, async (req, res) => {
+    try {
+      req.body.user=req.user._id;
+      const reservation = new Reservation(req.body);
+      try {
+        await reservation.save();
+      } catch (error) {
+        return res.status(500).send(error);
+      }
+      res.send({message: 'Reservation was successfully created'});
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
 
   router.get('/:id', async (req, res) => {
     try {
@@ -43,19 +58,6 @@ const createRouter = () => {
       res.status(500).send(error);
     }
   });
-
-
-  router.post('/', auth, async (req, res) => {
-    try {
-      const reqBody = {...req.body};
-      const reservation = new Reservation(reqBody);
-      await reservation.save();
-      res.send({message: 'Reservation was successfully created'});
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  });
-
 
   router.put('/:id', auth, async (req, res) => {
     try {

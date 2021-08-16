@@ -1195,7 +1195,58 @@ const fixApply = db => {
         userId: userUser._id,
         published: true,
         preview: 'borovoeyurtalux1.jpeg',
-        rating: 5,
+        rating: 5
+      }
+    );
+
+    const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv] = await Reservation.create(
+      {
+        accommodation: borovoetent._id, 
+        startDate: '2021-09-03',
+        endDate: '2021-09-10',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoetent._id, 
+        startDate: '2021-08-25',
+        endDate: '2021-08-30',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoegeo._id,
+        startDate: '2021-08-27',
+        endDate: '2021-09-05',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoegeo._id,
+        startDate: '2021-09-10',
+        endDate: '2021-09-20',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurta._id,
+        startDate: '2021-08-10',
+        endDate: '2021-08-25',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurta._id,
+        startDate: '2021-09-02',
+        endDate: '2021-09-10',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurtalux._id,
+        startDate: '2021-08-28',
+        endDate: '2021-09-16',
+        user: userUser._id,
+      },
+      {
+        accommodation: borovoeyurtalux._id,
+        startDate: '2021-09-20',
+        endDate: '2021-09-25',
+        user: userUser._id,
       }
     );
 
@@ -1526,66 +1577,7 @@ const fixApply = db => {
         accommodation: borovoeyurtalux._id,
       }
     );
-
-    const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv] = await Reservation.create(
-      {
-        accommodation: borovoetent._id,
-        pich: pichgeo._id,
-        startDate: '2021-09-03',
-        endDate: '2021-09-10',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoetent._id,
-        pich: pichgeo._id,
-        startDate: '2021-08-25',
-        endDate: '2021-08-30',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoegeo._id,
-        pich: pichtent._id,
-        startDate: '2021-08-27',
-        endDate: '2021-09-05',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoegeo._id,
-        pich: pichtent._id,
-        startDate: '2021-09-10',
-        endDate: '2021-09-20',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoeyurta._id,
-        pich: pichyurta._id,
-        startDate: '2021-08-10',
-        endDate: '2021-08-25',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoeyurta._id,
-        pich: pichyurta._id,
-        startDate: '2021-09-02',
-        endDate: '2021-09-10',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoeyurtalux._id,
-        pich: pichyurtalux._id,
-        startDate: '2021-08-28',
-        endDate: '2021-09-16',
-        user: userUser._id,
-      },
-      {
-        accommodation: borovoeyurtalux._id,
-        pich: pichyurtalux._id,
-        startDate: '2021-09-20',
-        endDate: '2021-09-25',
-        user: userUser._id,
-      }
-    );
-
+    
     db.close();
   });
 };
