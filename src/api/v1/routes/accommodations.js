@@ -21,6 +21,33 @@ const upload = multer({storage});
 
 const createRouter = () => {
 
+  router.get('/pages', (req, res) => {
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 2;
+    Accommodation.find()
+      .populate({path: 'productId', populate: {path: 'categoryId'}})
+      .sort({ _id: -1 })
+      .skip(page * limit)
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.send(err);
+        }
+        Accommodation.estimatedDocumentCount().exec((count_error, count) => {
+          if (err) {
+            return res.send(count_error);
+          }
+          return res.send({
+            items: count,
+            pages: Math.ceil(count / limit),
+            page: page,
+            pageSize: doc.length,
+            allAccommodations: doc,
+          });
+        });
+      });
+  });
+
   router.get('/last', async (req, res) => {
     try {
       const lastFourAccommodations = await Accommodation.find();
