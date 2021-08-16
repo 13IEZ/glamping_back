@@ -19,8 +19,9 @@ const createRouter = () => {
     }
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/", auth, async (req, res) => {
     try {
+      req.body.user=req.user._id;
       const reservation = new Reservation(req.body);
       try {
         await reservation.save({validateBeforeSave: false});
