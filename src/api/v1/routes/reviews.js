@@ -13,8 +13,10 @@ const createRouter = () => {
       if (req.query.product) {
         const reviews = await Review.find(req.query).populate('user', 'username');
         return res.send(reviews);
-      } else 
-      if (req.query.accommodation) {
+      } else if (req.query.accommodation) {
+        const reviews = await Review.find(req.query).populate('user', 'username');
+        return res.send(reviews);
+      } else if (req.query.user) {
         const reviews = await Review.find(req.query).populate('user', 'username');
         return res.send(reviews);
       }
