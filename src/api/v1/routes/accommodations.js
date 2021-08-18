@@ -1,3 +1,5 @@
+const { filterArray, sortArrayAsc, sortArrayDesc } = require('../../../utils');
+
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -7,6 +9,8 @@ const config = require('../../../../config');
 const Accommodation = require('../models/Accommodation');
 const Review = require('../models/Review');
 const auth = require('../middleware/auth');
+const filterAccommodation = require('../middleware/filterAccommodation');
+const AccommodationFilter = require('../models/AccommodationFilter');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,19 +25,44 @@ const upload = multer({storage});
 
 const createRouter = () => {
 
-  router.get('/pages', (req, res) => {
-    let page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 2;
-    Accommodation.find()
+  router.get('/filters', filterAccommodation, async (req, res) => {
+    let page = 0;
+    let limit = 2;
+    AccommodationFilter.find()
       .populate({path: 'productId', populate: {path: 'categoryId'}})
-      .sort({ _id: -1 })
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
         if (err) {
           return res.send(err);
         }
-        Accommodation.estimatedDocumentCount().exec((count_error, count) => {
+        AccommodationFilter.estimatedDocumentCount().exec((count_error, count) => {
+          if (err) {
+            return res.send(count_error);
+          }
+          return res.send({
+            items: count,
+            pages: Math.ceil(count / limit),
+            page: page,
+            pageSize: doc.length,
+            allAccommodations: doc,
+          });
+        });
+      });
+  });
+
+  router.get('/pages', filterAccommodation, (req, res) => {
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 2;
+    AccommodationFilter.find()
+      .populate({path: 'productId', populate: {path: 'categoryId'}})
+      .skip(page * limit)
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.send(err);
+        }
+        AccommodationFilter.estimatedDocumentCount().exec((count_error, count) => {
           if (err) {
             return res.send(count_error);
           }

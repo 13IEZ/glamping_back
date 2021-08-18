@@ -24,7 +24,8 @@ const sortArrAsc = (arr, fieldName) => {
       return 0;
     });
     return result;
-  } else {
+  } 
+  else {
     result = arr.sort(function (a, b) {
       if (a[`${prop}`] < b[`${prop}`]) {
         return -1;
@@ -51,7 +52,8 @@ const sortArrDesc = (arr, fieldName) => {
       }
       return 0;
     });
-  } else {
+  } 
+  else {
     result = arr.sort(function (a, b) {
       if (a[`${prop}`] < b[`${prop}`]) {
         return 1;
