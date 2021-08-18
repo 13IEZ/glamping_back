@@ -12,7 +12,7 @@ const Review = require('../models/Review');
 const auth = require('../middleware/auth');
 const filter = require('../middleware/filter');
 
-const PRODUCT_PAGE_COUNT = 15;
+const PRODUCT_PAGE_COUNT = 6;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

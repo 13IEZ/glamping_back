@@ -1085,7 +1085,7 @@ const fixApply = db => {
     const [pichgeo, pichtent, pichyurta, pichyurtalux] = await Pich.create(
       {
         title: 'Боровое Тент',
-        description: 'Отличное место для восстановления сил и энергии!',
+        description: 'Участок "Боровое Тент" ' + 'отличное место для восстановления сил и энергии!',
         image: ['geo1.png', 'geo2.jpeg'],
         number: 1,
         locationId: borovoe._id,
@@ -1097,7 +1097,7 @@ const fixApply = db => {
       {
         title: 'Боровое Геокупол',
         description:
-          'Проведите неповторимые выходные в самом лоне природы на свежем воздухе! Рядом лес, речка, богатый сбор грибов гарантируем.',
+          'Проведите неповторимые выходные в самом лоне природы на свежем воздухе на участке "Боровое Геокупол"! Рядом лес, речка, богатый сбор грибов гарантируем.',
         image: ['belltent1.jpg', 'belltent2.jpg'],
         number: 2,
         locationId: borovoe._id,
@@ -1108,7 +1108,7 @@ const fixApply = db => {
       },
       {
         title: 'Боровое Юрта',
-        description: 'Красота гор и озера, все у ваших ног!',
+        description: 'Красота гор и озера, все у ваших ног на участке "Боровое Юрта"!',
         image: ['yurta1.jpeg', 'yurta2.jpeg'],
         number: 3,
         locationId: borovoe._id,
@@ -1120,7 +1120,7 @@ const fixApply = db => {
       {
         title: 'Боровое Юрта Люкс',
         description:
-          'В сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
+          'На участке "Боровое Юрта Люкс" в сервис входят звезды, горы и посиделки у костра, свежий шашлык на вертеле, жареные молодые барашки и элитное вино столетней выдержки.',
         image: ['yurta1.jpeg', 'yurta2.jpeg', 'yurta3.jpeg'],
         number: 4,
         locationId: borovoe._id,
@@ -1195,19 +1195,19 @@ const fixApply = db => {
         userId: userUser._id,
         published: true,
         preview: 'borovoeyurtalux1.jpeg',
-        rating: 5
+        rating: 5,
       }
     );
 
     const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv] = await Reservation.create(
       {
-        accommodation: borovoetent._id, 
+        accommodation: borovoetent._id,
         startDate: '2021-09-03',
         endDate: '2021-09-10',
         user: userUser._id,
       },
       {
-        accommodation: borovoetent._id, 
+        accommodation: borovoetent._id,
         startDate: '2021-08-25',
         endDate: '2021-08-30',
         user: userUser._id,
@@ -1577,7 +1577,7 @@ const fixApply = db => {
         accommodation: borovoeyurtalux._id,
       }
     );
-    
+
     db.close();
   });
 };
