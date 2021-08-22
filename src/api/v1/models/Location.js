@@ -171,7 +171,66 @@ const LocationSchema = new Schema({
     default: false,
     required: true
   },
-  
+  laundry: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  sauna: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  sportsGround: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  playground: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  beach: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  indoorPoll: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  pharmacy: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  miniZoo: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  store: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  cafe: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  restaurant: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  parking: {
+    type: Boolean,
+    default: false,
+    required: true
+  }
 });
 
 LocationSchema.plugin(idValidator, {
