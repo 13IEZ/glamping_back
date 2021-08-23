@@ -31,8 +31,8 @@ const createRouter = () => {
 
       if (req.query.user) {
         const productsOfUser = await Product.find({userId: req.query.user})
-          .populate('userId');
-        res.send(productsOfUser);
+          .populate(['userId', 'categoryId', 'factoryId']);
+        return res.send(productsOfUser);
       }
 
 
