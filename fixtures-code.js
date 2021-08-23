@@ -632,7 +632,7 @@ const fixApply = db => {
         beach: true,
         indoorPoll: false,
         pharmacy: true,
-        miniZoo: TextTrackCue,
+        miniZoo: false,
         store: true,
         cafe: true,
         restaurant: false,
