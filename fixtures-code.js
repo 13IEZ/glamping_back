@@ -577,7 +577,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -628,11 +628,11 @@ const fixApply = db => {
         laundry: false,
         sauna: true,
         sportsGround: true,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
-        miniZoo: TextTrackCue,
+        miniZoo: false,
         store: true,
         cafe: true,
         restaurant: false,
@@ -679,7 +679,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -730,7 +730,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -781,7 +781,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -831,7 +831,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -882,7 +882,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -933,7 +933,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -984,7 +984,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1035,7 +1035,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1086,7 +1086,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1137,7 +1137,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1188,7 +1188,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1239,7 +1239,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1290,7 +1290,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1341,7 +1341,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1392,7 +1392,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1443,7 +1443,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1494,7 +1494,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1545,7 +1545,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1596,7 +1596,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1647,7 +1647,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1698,7 +1698,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1749,7 +1749,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1800,7 +1800,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1851,7 +1851,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1902,7 +1902,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -1953,7 +1953,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2004,7 +2004,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2055,7 +2055,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2106,7 +2106,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2157,7 +2157,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2208,7 +2208,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2259,7 +2259,7 @@ const fixApply = db => {
         laundry: true,
         sauna: true,
         sportsGround: false,
-        playground: true
+        playground: true,
         beach: true,
         indoorPoll: false,
         pharmacy: true,
@@ -2388,7 +2388,7 @@ const fixApply = db => {
       }
     );
 
-    const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv] = await Reservation.create(
+    const [borovoetentreserv, borovoegeoreserv, borovoeyurtareserv, borovoeyurtaluxreserv, pichgeoreserv, pichtentreserv, pichyurtareserv, pichyurtaluxreserv] = await Reservation.create(
       {
         accommodation: borovoetent._id,
         startDate: '2021-09-03',
@@ -2435,6 +2435,30 @@ const fixApply = db => {
         accommodation: borovoeyurtalux._id,
         startDate: '2021-09-20',
         endDate: '2021-09-25',
+        user: userUser._id,
+      },
+      {
+        pich: pichgeo._id,
+        startDate: '2021-09-04',
+        endDate: '2021-10-20',
+        user: userUser._id,
+      },
+      {
+        pich: pichtent._id,
+        startDate: '2021-09-20',
+        endDate: '2021-11-25',
+        user: userUser._id,
+      },
+      {
+        pich: pichyurta._id,
+        startDate: '2021-09-15',
+        endDate: '2021-10-25',
+        user: userUser._id,
+      },
+      {
+        pich: pichyurtalux._id,
+        startDate: '2021-09-18',
+        endDate: '2021-12-01',
         user: userUser._id,
       }
     );
