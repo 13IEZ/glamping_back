@@ -14,6 +14,11 @@ const createRouter = () => {
         if (!reservations) return res.sendStatus(404);
         return res.send(reservations);
       } else
+      if (req.query.pich) {
+        const reservations = await Reservation.find({pich: req.query.pich});
+        if (!reservations) return res.sendStatus(404);
+        return res.send(reservations);
+      } else
       if (req.query.user) {
       const reservations = await Reservation.find({user: req.query.user})
         .populate(['accommodation', 'pich', 'user']);
@@ -50,6 +55,19 @@ const createRouter = () => {
     try {
       const reservation = await Reservation.findById(req.params.id)
         .populate(['accommodation', 'pich', 'user']);
+
+      if (!reservation) return res.sendStatus(404);
+
+      res.send(reservation);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+  router.get('/:id', async (req, res) => {
+    try {
+      const reservation = await Reservation.findById(req.params.id)
+        .populate(['pich', 'user']);
 
       if (!reservation) return res.sendStatus(404);
 
