@@ -28,6 +28,14 @@ const upload = multer({ storage });
 const createRouter = () => {
   router.get('/', async (req, res) => {
     try {
+
+      if (req.query.user) {
+        const productsOfUser = await Product.find({userId: req.query.user})
+          .populate(['userId', 'categoryId', 'factoryId']);
+        return res.send(productsOfUser);
+      }
+
+
       let products = await Product.find();
       if (req.query.filter) {
         products = filterArr(products, req.query.filter, req.query._id);
