@@ -17,7 +17,8 @@ const createRouter = () => {
         const reviews = await Review.find(req.query).populate('user', 'username');
         return res.send(reviews);
       } else if (req.query.user) {
-        const reviews = await Review.find(req.query).populate('user', 'username');
+        const reviews = await Review.find(req.query).populate('user', 'username')
+        .populate('accommodation', 'title');
         return res.send(reviews);
       }
 
