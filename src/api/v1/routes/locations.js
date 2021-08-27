@@ -87,25 +87,23 @@ const createRouter = () => {
   });
 
   router.post('/', auth, upload.array('image'), async (req, res) => {
-
-
     try {
       const reqBody = {...req.body};
-      if (req.files) reqBody.image = req.files.map(file => file.filename);
-
+      if (req.body.fileList) reqBody.image = req.body.fileList.map(file => file.name);
       reqBody.owner = req.user;
-
+      
       const location = new Location(reqBody);
 
       try {
         await location.save();
       } catch (error) {
+        console.log(error)
         // !!! TODO Delete image if error occurred
         return res.status(500).send(error);
       }
-
       res.send(location);
     } catch (error) {
+      console.log(error)
       // !!! TODO Delete image if error occurred
       res.status(400).send(error);
     }
