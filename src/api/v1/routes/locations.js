@@ -25,11 +25,10 @@ const createRouter = () => {
 
   router.get('/', async (req, res) => {
 
-    // !!! TODO We need to decide about query params in this route
-
     try {
       const locations = await Location.find().populate('owner');
       res.send(locations);
+    
     } catch(error) {
       res.status(500).send(error);
     }

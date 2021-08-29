@@ -23,9 +23,29 @@ const createRouter = () => {
       const reservations = await Reservation.find({user: req.query.user})
         .populate(['accommodation', 'pich', 'user']);
 
-      if (!reservations) return res.sendStatus(404);
+        if (!reservations) return res.sendStatus(404);
 
-      return res.send(reservations);
+        return res.send(reservations);
+      } else if (req.query.owner) {
+        await Reservation.find()
+          .populate({path: 'pich', 
+          populate: {path: 'locationId',
+          populate: {path: 'owner'}}}).exec((err, reservations) => {
+
+            if (err) return res.status(500).send(err);
+
+            const reservationsOfUser = [];
+
+            reservations.forEach(reservation => {
+              if (reservation.pich) {
+                if (reservation.pich.locationId.owner._id.toString() === req.query.owner) {
+                  reservationsOfUser.push(reservation);
+                }                
+              }
+            })
+            return res.send(reservationsOfUser);
+          });
+          return;
       }
 
       const reservations = await Reservation.find()
