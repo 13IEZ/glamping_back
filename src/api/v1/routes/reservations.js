@@ -46,6 +46,27 @@ const createRouter = () => {
             return res.send(reservationsOfUser);
           });
           return;
+      } else if (req.query.owner_of_accommodations) {
+        await Reservation.find()
+        .populate({path: 'accommodation', 
+        populate: {path: 'pichId',
+        populate: {path: 'locationId',
+        populate: {path: 'owner'}}}}).exec((err, reservations) => {
+
+          if (err) return res.status(500).send(err);
+
+          const reservationsOfUser = [];
+
+          reservations.forEach(reservation => {
+            if (reservation.accommodation) {
+              if (reservation.accommodation.pichId.locationId.owner._id.toString() === req.query.owner_of_accommodations) {
+                reservationsOfUser.push(reservation);
+              }                
+            }
+          });
+          return res.send(reservationsOfUser);
+        });
+        return;
       }
 
       const reservations = await Reservation.find()
