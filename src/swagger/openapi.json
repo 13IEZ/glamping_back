@@ -17,7 +17,7 @@
       "name": "location"
     },
     {
-      "name": "module"
+      "name": "product"
     },
     {
       "name": "review"
@@ -25,9 +25,9 @@
   ],
   "components": {
     "schemas": {
-      "Module": {
+      "Product": {
         "type": "object",
-        "required": ["title", "type", "image", "roominess", "year", "description"],
+        "required": ["title", "category", "image", "roominess", "year", "description"],
         "properties": {
           "_id": {
             "type": "integer"
@@ -35,7 +35,7 @@
           "title": {
             "type": "string"
           },
-          "type": {
+          "category": {
             "type": "string"
           },
           "image": {
@@ -48,15 +48,6 @@
             "type": "number"
           },
           "description": {
-            "type": "string"
-          },
-          "number": {
-            "type": "number"
-          },
-          "series": {
-            "type": "string"
-          },
-          "color": {
             "type": "string"
           },
           "price": {
@@ -72,7 +63,7 @@
             "type": "boolean"
           },
           "factory": {
-            "$ref": "#/components/schemas/User"
+            "type": "string"
           }
         }
       },
@@ -113,8 +104,8 @@
           "published": {
             "type": "boolean"
           },
-          "owner": {
-            "$ref": "#/components/schemas/User"
+          "owner":  {
+            "type": "string"
           }
         }
       }
@@ -131,17 +122,17 @@
     "bearerAuth": []
   }],
   "paths": {
-    "/modules": {
+    "/products": {
       "get": {
-        "tags": ["module"],
-        "summary": "Get all modules",
+        "tags": ["product"],
+        "summary": "Get all products",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -152,15 +143,15 @@
         }
       },
       "post": {
-        "tags": ["module"],
-        "summary": "Post new module",
+        "tags": ["product"],
+        "summary": "Post new product",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -171,17 +162,17 @@
         }
       }
     },
-    "/modules/last": {
+    "/products/last": {
       "get": {
-        "tags": ["module"],
-        "summary": "Get last 4 modules",
+        "tags": ["product"],
+        "summary": "Get last 4 products",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -192,15 +183,15 @@
         }
       }
     },
-    "/modules/{id}": {
+    "/products/{id}": {
       "get": {
-        "tags": ["module"],
-        "summary": "Get module by ID",
+        "tags": ["product"],
+        "summary": "Get product by ID",
         "parameters": [{
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of module that we want to find",
+          "description": "ID of product that we want to find",
           "schema": {
             "type": "string"
           }
@@ -211,7 +202,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -222,13 +213,13 @@
         }
       },
       "put": {
-        "tags": ["module"],
-        "summary": "Put module by ID",
+        "tags": ["product"],
+        "summary": "Put product by ID",
         "parameters": [{
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of module that we want to update",
+          "description": "ID of product that we want to update",
           "schema": {
             "type": "string"
           }
@@ -240,10 +231,10 @@
                 "type": "object",
                 "properties": {
                   "title": { 
-                    "description": "Updated title of the module",
+                    "description": "Updated title of the product",
                     "type": "string"
                   },
-                  "type": {
+                  "category": {
                     "type": "string"
                   },
                   "image": {
@@ -257,15 +248,6 @@
                     "type": "number"
                   },
                   "description": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "series": {
-                    "type": "string"
-                  },
-                  "color": {
                     "type": "string"
                   },
                   "price": {
@@ -288,7 +270,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -299,13 +281,13 @@
         }
       },
       "delete": {
-        "tags": ["module"],
-        "summary": "Delete module by ID",
+        "tags": ["product"],
+        "summary": "Delete product by ID",
         "parameters": [{
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of module that we want to delete",
+          "description": "ID of product that we want to delete",
           "schema": {
             "type": "string"
           }
@@ -316,7 +298,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -327,15 +309,15 @@
         }
       }
     },
-    "/modules/published/{id}": {
+    "/products/published/{id}": {
       "put": {
-        "tags": ["module"],
-        "summary": "Published module by ID",
+        "tags": ["product"],
+        "summary": "Published product by ID",
         "parameters": [{
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "ID of module that we want to publish",
+          "description": "ID of product that we want to publish",
           "schema": {
             "type": "string"
           }
@@ -360,7 +342,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Module"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }

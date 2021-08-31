@@ -28,6 +28,7 @@ const ProductSchema = new Schema({
   },
   rating: {
     type: Number,
+    default: 0,
     required: true,
   },
   image: [
@@ -46,6 +47,13 @@ const ProductSchema = new Schema({
   },
   price: {
     type: String,
+    required: true,
+  },
+  rent: {
+    type: String,
+  },
+  year: {
+    type: Date,
     required: true,
   },
   published: {

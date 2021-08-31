@@ -23,8 +23,7 @@ const ProductFilterSchema = new Schema({
     required: true,
   },
   preview: {
-    type: String,
-    required: true,
+    type: String
   },
   rating: {
     type: Number,
