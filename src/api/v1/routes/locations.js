@@ -88,8 +88,9 @@ const createRouter = () => {
 
   router.post('/', auth, upload.array('files'), async (req, res) => {
     try {
-      req.body.coords = JSON.parse(req.body.coords[1])
-
+      
+      req.body.coords = JSON.parse(req.body.coords)
+      console.log(req.body.coords)
       const reqBody = {...req.body};
       if (req.files) reqBody.image = req.files.map(file => file.filename);
       reqBody.owner = req.user;
