@@ -196,7 +196,7 @@ const LocationSchema = new Schema({
     default: false,
     required: true
   },
-  indoorPoll: {
+  indoorPool: {
     type: Boolean,
     default: false,
     required: true

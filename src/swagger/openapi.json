@@ -23,8 +23,39 @@
       "name": "review"
     }
   ],
+  
   "components": {
     "schemas": {
+      "User": {
+        "type": "object",
+        "required": ["username", "userSurname", "password", "token", "role", "phone", "email"],
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "userSurname": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
       "Product": {
         "type": "object",
         "required": ["title", "category", "image", "roominess", "year", "description"],
@@ -63,7 +94,7 @@
             "type": "boolean"
           },
           "factory": {
-            "type": "string"
+            "$ref": "#/components/schemas/User"
           }
         }
       },
@@ -105,7 +136,7 @@
             "type": "boolean"
           },
           "owner":  {
-            "type": "string"
+            "$ref": "#/components/schemas/User"
           }
         }
       }

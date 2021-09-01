@@ -50,7 +50,6 @@ const AccommodationSchema = new Schema({
    },
    preview: {
       type: String,
-      required: true
    },
    published: {
       type: Boolean,
@@ -59,6 +58,7 @@ const AccommodationSchema = new Schema({
    },
    rating: {
       type: Number,
+      default: 0,
       required: true,
    },
    reviewsQuantity: {

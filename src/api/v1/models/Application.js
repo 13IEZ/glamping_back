@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const idValidator = require('mongoose-id-validator');
 const Schema = mongoose.Schema;
 
-const AccommodationFilterSchema = new Schema({
+const ApplicationSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -36,7 +36,7 @@ const AccommodationFilterSchema = new Schema({
     type: String,
     required: true
   },
-  //Booked - false, free - true
+   //Booked - false, free - true
   status: {
     type: Boolean,
     default: true,
@@ -58,6 +58,7 @@ const AccommodationFilterSchema = new Schema({
   },
   rating: {
     type: Number,
+    default: 0,
     required: true,
   },
   reviewsQuantity: {
@@ -65,10 +66,10 @@ const AccommodationFilterSchema = new Schema({
   }
 });
 
-AccommodationFilterSchema.plugin(idValidator, {
-  message: 'Bad ID value for {PATH}',
+ApplicationSchema.plugin(idValidator, {
+   message: "Bad ID value for {PATH}"
 });
 
-const AccommodationFilter = mongoose.model('AccommodationFilter', AccommodationFilterSchema);
+const Application = mongoose.model('Application', ApplicationSchema);
 
-module.exports = AccommodationFilter;
+module.exports = Application;
