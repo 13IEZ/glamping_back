@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const idValidator = require('mongoose-id-validator');
 const Schema = mongoose.Schema;
 
-const AccommodationSchema = new Schema({
+const ApplicationSchema = new Schema({
    title: {
       type: String,
       required: true,
@@ -66,10 +66,10 @@ const AccommodationSchema = new Schema({
    }
 });
 
-AccommodationSchema.plugin(idValidator, {
+ApplicationSchema.plugin(idValidator, {
    message: "Bad ID value for {PATH}"
 });
 
-const Accommodation = mongoose.model('Accommodation', AccommodationSchema);
+const Application = mongoose.model('Accommodation', ApplicationSchema);
 
-module.exports = Accommodation;
+module.exports = Application;

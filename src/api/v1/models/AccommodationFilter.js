@@ -50,7 +50,6 @@ const AccommodationFilterSchema = new Schema({
   },
   preview: {
     type: String,
-    required: true
   },
   published: {
     type: Boolean,

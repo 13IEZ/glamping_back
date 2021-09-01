@@ -63,7 +63,7 @@
             "type": "boolean"
           },
           "factory": {
-            "type": "string"
+            "$ref": "#/components/schemas/User"
           }
         }
       },
@@ -105,7 +105,7 @@
             "type": "boolean"
           },
           "owner":  {
-            "type": "string"
+            "$ref": "#/components/schemas/User"
           }
         }
       }

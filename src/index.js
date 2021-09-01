@@ -14,6 +14,7 @@ const users = require('./api/v1/routes/users');
 const products = require('./api/v1/routes/products');
 const reviews = require('./api/v1/routes/reviews');
 const accommodations = require('./api/v1/routes/accommodations');
+const applications = require('./api/v1/routes/applicatios')
 const piches = require('./api/v1/routes/piches');
 const reservations = require('./api/v1/routes/reservations');
 
@@ -55,6 +56,7 @@ const run = async () => {
   app.use('/products', products());
   app.use('/reviews', reviews());
   app.use('/accommodations', accommodations());
+  app.use('/applications', applications());
   app.use('/reservations', reservations());
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
