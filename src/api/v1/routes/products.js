@@ -148,41 +148,43 @@ const createRouter = () => {
     }
   });
 
-  router.post('/', auth, upload.array('image'), async (req, res) => {
-    const module = new Product(req.body);
-    if (req.files) {
-      module.image = req.files.map(file => file.filename);
-    }
+  router.post('/', auth, upload.array('files'), async (req, res) => {
+    const reqBody = {...req.body};
+    if (req.files) reqBody.image = req.files.map(file => file.filename);
+    reqBody.userId = req.user;
+
+    const product = new Product(reqBody);
     try {
-      await module.save();
-      res.send(module);
+      await product.save();
     } catch (error) {
-      res.status(400).send(error);
+      console.log(error);
+      return res.status(500).send(error)
     }
+    res.send(product);
   });
 
   router.put('/:id', auth, upload.array('image'), async (req, res) => {
     try {
-      const module = { ...req.body };
+      const product = { ...req.body };
       if (req.files) {
-        module.image = req.files.map(file => file.filename);
+        product.image = req.files.map(file => file.filename);
       }
       await Product.updateOne(
         { _id: req.params.id },
         {
           $set: {
-            title: module.title,
-            type: module.type,
-            image: module.image,
-            roominess: module.roominess,
-            year: module.year,
-            description: module.description,
-            number: module.number,
-            series: module.series,
-            color: module.color,
-            price: module.price,
-            rent: module.rent,
-            status: module.status,
+            title: product.title,
+            categoryId: product.categoryId,
+            image: product.image,
+            season: product.season,
+            factoryId: product.factoryId,
+            roominess: product.roominess,
+            year: product.year,
+            description: product.description,
+            price: product.price,
+            rent: product.rent,
+            status: product.status,
+            published: product.published,
           },
         }
       );
@@ -195,9 +197,9 @@ const createRouter = () => {
 
   router.put('/published/:id', async (req, res) => {
     try {
-      const module = await Product.findById(req.params.id);
-      if (module) {
-        await Product.updateOne({ _id: req.params.id }, { $set: { published: !module.published } });
+      const product = await Product.findById(req.params.id);
+      if (product) {
+        await Product.updateOne({ _id: req.params.id }, { $set: { published: !product.published } });
         const updatedProduct = await Product.findById(req.params.id);
         res.send(updatedProduct);
       }
