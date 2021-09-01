@@ -63,16 +63,17 @@ const createRouter = () => {
   });
 
   router.post('/', auth, upload.array('image'), async (req, res) => {
+    const reqBody = {...req.body};
+    if (req.files) reqBody.image = req.files.map(file => file.filename);
+    reqBody.userId = req.user;
+
     const application = new Application(req.body);
-    if (req.files) {
-      applications.image = req.files.map(file => file.filename);
-    }
     try {
       await applications.save();
-      res.send(application);
     } catch (error) {
-      res.status(400).send(error);
+      res.status(500).send(error);
     }
+    res.send(application);
   });
 
   router.put('/:id', auth, upload.array('image'), async (req, res) => {
