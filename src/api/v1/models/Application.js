@@ -70,6 +70,6 @@ ApplicationSchema.plugin(idValidator, {
    message: "Bad ID value for {PATH}"
 });
 
-const Application = mongoose.model('Accommodation', ApplicationSchema);
+const Application = mongoose.model('Application', ApplicationSchema);
 
 module.exports = Application;
