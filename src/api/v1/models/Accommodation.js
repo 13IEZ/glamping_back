@@ -25,12 +25,10 @@ const AccommodationSchema = new Schema({
       type: String,
       required: true
    }],
-   startDate: {
-      type: String
-   },
-   endDate: {
-      type: String
-   },
+   reservedDays: [{
+      type: String,
+      required: true
+   }],
    //rent price
    rent: {
       type: String,

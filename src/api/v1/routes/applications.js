@@ -25,16 +25,16 @@ const createRouter = () => {
     try {
       await Application.find().
       populate({
-         path: "pichId", populate: { path: "locationId" }
+        path: "pichId", populate: { path: "locationId" }
       }).exec((err, applications) => {
         applications = applications.filter(application => {
-            return application.pichId.locationId.equals(req.query.locationId);
-         });
-         if (applications) {
-            res.send(applications);
-         } else {
-            res.sendStatus(404);
-         }
+          return application.pichId.locationId.equals(req.query.locationId);
+        });
+        if (applications) {
+          res.send(applications);
+        } else {
+          res.sendStatus(404);
+        }
         })
       }catch(error) {
     res.status(500).send(error)
@@ -49,7 +49,7 @@ const createRouter = () => {
        populate: {path: 'categoryId'}})
       .populate({
         path: "pichId", populate: { path: "locationId" }
-     });
+    });
 
       const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0);
       const average = Math.round(sumRating/quantity);
@@ -62,15 +62,18 @@ const createRouter = () => {
     }
   });
 
-  router.post('/', auth, upload.array('image'), async (req, res) => {
+  router.post('/', auth, upload.array('files'), async (req, res) => {
     const reqBody = {...req.body};
     if (req.files) reqBody.image = req.files.map(file => file.filename);
     reqBody.userId = req.user;
+    reqBody.startDate = req.body.reservation.startDate;
+    reqBody.endDate = req.body.reservation.endDate;
 
-    const application = new Application(req.body);
+    const application = new Application(reqBody);
     try {
-      await applications.save();
+      await application.save();
     } catch (error) {
+      console.log(error);
       res.status(500).send(error);
     }
     res.send(application);
