@@ -11,11 +11,6 @@ const ApplicationSchema = new Schema({
     type: String,
     required: true
   },
-  productId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true
-  },
   pichId: {
     type: Schema.Types.ObjectId,
     ref: 'Pich',
