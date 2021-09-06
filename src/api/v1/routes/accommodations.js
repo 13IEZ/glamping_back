@@ -49,7 +49,6 @@ const createRouter = () => {
 
   router.get('/pages', filterAccomod, (req, res) => {
     let page = parseInt(req.query.page) || 0;
-    console.log(req.query.page);
     let limit = parseInt(req.query.limit) || 2;
     AccommodationFilter.find()
       .skip(page * limit)
