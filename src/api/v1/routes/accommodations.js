@@ -1,15 +1,13 @@
-const { filterArray, sortArrayAsc, sortArrayDesc } = require('../../../utils');
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const {nanoid} = require('nanoid');
+const { nanoid } = require('nanoid');
 const config = require('../../../../config');
 const Accommodation = require('../models/Accommodation');
 const Review = require('../models/Review');
 const auth = require('../middleware/auth');
-const filterAccommodation = require('../middleware/filterAccommodation');
+const filterAccomod = require('../middleware/filterAccomod');
 const AccommodationFilter = require('../models/AccommodationFilter');
 
 const storage = multer.diskStorage({
@@ -21,15 +19,13 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({storage});
+const upload = multer({ storage });
 
 const createRouter = () => {
-
-  router.get('/filters', filterAccommodation, async (req, res) => {
+  router.get('/filters', filterAccomod, async (req, res) => {
     let page = 0;
     let limit = 2;
     AccommodationFilter.find()
-      .populate({path: 'productId', populate: {path: 'categoryId'}})
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
@@ -51,11 +47,11 @@ const createRouter = () => {
       });
   });
 
-  router.get('/pages', filterAccommodation, (req, res) => {
+  router.get('/pages', filterAccomod, (req, res) => {
     let page = parseInt(req.query.page) || 0;
+    console.log(req.query.page);
     let limit = parseInt(req.query.limit) || 2;
     AccommodationFilter.find()
-      .populate({path: 'productId', populate: {path: 'categoryId'}})
       .skip(page * limit)
       .limit(limit)
       .exec((err, doc) => {
@@ -80,7 +76,7 @@ const createRouter = () => {
   router.get('/last', async (req, res) => {
     try {
       const lastFourAccommodations = await Accommodation.find();
-        res.send(lastFourAccommodations);
+      res.send(lastFourAccommodations);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -89,39 +85,42 @@ const createRouter = () => {
   //get all accommodations related to current location
   router.get('/', async (req, res) => {
     try {
-      await Accommodation.find().
-      populate({
-         path: "pichId", populate: { path: "locationId" }
-      }).exec((err, accommodations) => {
-         accommodations = accommodations.filter(accommodation => {
-            return accommodation.pichId.locationId.equals(req.query.locationId);
-         });
-         if (accommodations) {
-            res.send(accommodations);
-         } else {
-            res.sendStatus(404);
-         }
+      await Accommodation.find()
+        .populate({
+          path: 'pichId',
+          populate: { path: 'locationId' },
         })
-      }catch(error) {
-    res.status(500).send(error)
+        .exec((err, accommodations) => {
+          accommodations = accommodations.filter(accommodation => {
+            return accommodation.pichId.locationId.equals(req.query.locationId);
+          });
+          if (accommodations) {
+            res.send(accommodations);
+          } else {
+            res.sendStatus(404);
+          }
+        });
+    } catch (error) {
+      res.status(500).send(error);
     }
   });
 
   router.get('/:id', async (req, res) => {
     let accommodation;
     try {
-      
       accommodation = await Accommodation.findById(req.params.id)
-      .populate({path: 'productId', 
-       populate: {path: 'categoryId'}})
-      .populate({
-        path: "pichId", populate: { path: "locationId" }
-     });
+        .populate({ path: 'productId', populate: { path: 'categoryId' } })
+        .populate({
+          path: 'pichId',
+          populate: { path: 'locationId' },
+        });
 
-      const reviews = await Review.find({accommodation: req.params.id});
+      const reviews = await Review.find({ accommodation: req.params.id });
       const quantity = reviews.length;
-      const sumRating = reviews.reduce(function(a, b) {return a+b.rating}, 0);
-      const average = Math.round(sumRating/quantity);
+      const sumRating = reviews.reduce(function (a, b) {
+        return a + b.rating;
+      }, 0);
+      const average = Math.round(sumRating / quantity);
       accommodation.rating = average;
       accommodation.reviewsQuantity = quantity;
       res.send(accommodation);
@@ -146,12 +145,12 @@ const createRouter = () => {
 
   router.put('/:id', auth, upload.array('image'), async (req, res) => {
     try {
-      const accommodation = {...req.body};
+      const accommodation = { ...req.body };
       if (req.files) {
         accommodation.image = req.files.map(file => file.filename);
       }
       await Accommodation.updateOne(
-        {_id: req.params.id},
+        { _id: req.params.id },
         {
           $set: {
             title: accommodation.title,
@@ -164,7 +163,7 @@ const createRouter = () => {
             rent: accommodation.rent,
             status: accommodation.status,
             userId: accommodation.userId,
-            preview: accommodation.preview
+            preview: accommodation.preview,
           },
         }
       );
@@ -179,7 +178,7 @@ const createRouter = () => {
     try {
       const accommodation = await Accommodation.findById(req.params.id);
       if (accommodation) {
-        await Accommodation.updateOne({_id: req.params.id}, {$set: {published: !accommodation.published}});
+        await Accommodation.updateOne({ _id: req.params.id }, { $set: { published: !accommodation.published } });
         const updatedAccommodation = await Accommodation.findById(req.params.id);
         res.send(updatedAccommodation);
       }
@@ -190,7 +189,7 @@ const createRouter = () => {
 
   router.delete('/:id', auth, async (req, res) => {
     try {
-      const deletedAccommodation = await Accommodation.deleteOne({_id: req.params.id});
+      const deletedAccommodation = await Accommodation.deleteOne({ _id: req.params.id });
       res.send(deletedAccommodation);
     } catch (error) {
       res.status(500).send(error);
