@@ -79,7 +79,6 @@ const createRouter = () => {
         path: 'pichId',
         populate: ({path: 'locationId', select: 'region'}), 
       });
-      console.log(lastFourAccommodations)
       res.send(lastFourAccommodations);
     } catch (error) {
       res.status(500).send(error);
