@@ -74,7 +74,12 @@ const createRouter = () => {
 
   router.get('/last', async (req, res) => {
     try {
-      const lastFourAccommodations = await Accommodation.find();
+      const lastFourAccommodations = await Accommodation.find()
+      .populate({
+        path: 'pichId',
+        populate: ({path: 'locationId', select: 'region'}), 
+      });
+      console.log(lastFourAccommodations)
       res.send(lastFourAccommodations);
     } catch (error) {
       res.status(500).send(error);
