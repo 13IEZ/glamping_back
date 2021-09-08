@@ -83,8 +83,7 @@ const createRouter = () => {
   });
 
   router.post("/", auth, async (req, res) => {
-
-    if (!req.body.product && !req.body.location || req.body.product && req.body.location) {
+    if (!req.body.product && !req.body.location && !req.body.accommodation || req.body.product && req.body.location && req.body.accommodation ) {
       return res.send("Error")
     }
 
@@ -97,7 +96,8 @@ const createRouter = () => {
       } catch (error) {
         return res.status(500).send(error);
       }
-      res.send({message: 'Review was successfully created'});
+      console.log(review)
+      res.send(review);
     } catch (error) {
       res.status(400).send(error);
     }
