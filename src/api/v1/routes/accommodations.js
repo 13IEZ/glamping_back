@@ -19,7 +19,19 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: {
+    files: 5,
+    fieldSize: 2 * 1024 * 1024
+  },
+  fileFilter: (req, file, cb) => {
+    if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error("Загрузите картинку"), false);
+    }
+    cb(null, true);
+  }
+});
 
 const createRouter = () => {
   router.get('/filters', filterAccomod, async (req, res) => {
@@ -135,9 +147,13 @@ const createRouter = () => {
 
   router.post('/', auth, upload.array('image'), async (req, res) => {
     const accommodation = new Accommodation(req.body);
+    
     if (req.files) {
-      accommodations.image = req.files.map(file => file.filename);
+      reqBody.image = req.files.map(file => file.filename);
+    } else {
+      return res.status(500)
     }
+
     try {
       await accommodations.save();
       res.send(accommodation);
