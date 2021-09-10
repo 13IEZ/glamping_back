@@ -19,7 +19,19 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: {
+    files: 5,
+    fieldSize: 2 * 1024 * 1024
+  },
+  fileFilter: (req, file, cb) => {
+    if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error("Загрузите картинку"), false);
+    }
+    cb(null, true);
+  }
+});
 
 const createRouter = () => {
   router.get('/', async (req, res) => {
@@ -54,7 +66,11 @@ const createRouter = () => {
   router.post('/', [upload.array('image'), auth], async (req, res) => {
     try {
       const reqBody = { ...req.body };
-      if (req.files) reqBody.image = req.files.map(file => file.filename);
+      if (req.files) {
+        reqBody.image = req.files.map(file => file.filename);
+      } else {
+        return res.status(500)
+      }
 
       const pich = new Pich(reqBody);
 

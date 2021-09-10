@@ -18,7 +18,19 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({storage});
+const upload = multer({ 
+  storage,
+  limits: {
+    files: 5,
+    fieldSize: 2 * 1024 * 1024
+  },
+  fileFilter: (req, file, cb) => {
+    if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error("Загрузите картинку"), false);
+    }
+    cb(null, true);
+  }
+});
 
 
 const createRouter = () => {
@@ -90,18 +102,23 @@ const createRouter = () => {
       req.body.coords = JSON.parse(req.body.coords)
 
       const reqBody = {...req.body};
-      if (req.files) reqBody.image = req.files.map(file => file.filename);
+      if (req.files) {
+        reqBody.image = req.files.map(file => file.filename);
+      } else {
+        return res.status(500)
+      }
+
       reqBody.owner = req.user;
       
       const location = new Location(reqBody);
       try {
         await location.save();
+       res.send(location);
       } catch (error) {
         console.log(error)
         // !!! TODO Delete image if error occurred
         return res.status(500).send(error);
       }
-       res.send(location);
     } catch (error) {
       console.log(error)
       // !!! TODO Delete image if error occurred
