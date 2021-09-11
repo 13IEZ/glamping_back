@@ -490,9 +490,9 @@ const fixApply = db => {
         categoryId: tent._id,
         userId: testUser._id,
         season: 'summer',
-        preview: 'belltent3.jpg',
+        preview: 'belltent4.jpg',
         rating: 3,
-        image: ['belltent3.jpg', 'belltent4.jpg'],
+        image: ['belltent4.jpg'],
         roominess: 4,
         description:
           'Белл тент — это палатка для проживания, путешествий или отдыха. ' +
