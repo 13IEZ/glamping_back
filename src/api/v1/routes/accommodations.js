@@ -36,7 +36,7 @@ const upload = multer({
 const createRouter = () => {
   router.get('/filters', filterAccomod, async (req, res) => {
     let page = 0;
-    let limit = 2;
+    let limit = 12;
     AccommodationFilter.find()
       .skip(page * limit)
       .limit(limit)
