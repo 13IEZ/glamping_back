@@ -16,10 +16,12 @@ const ApplicationSchema = new Schema({
     ref: 'Pich',
     required: true
   },
-  image: [{
+  image: [
+    {
     type: String,
-    required: true
-  }],
+    required: true,
+    }
+  ],
   startDate: {
     type: String
   },

@@ -6,6 +6,24 @@ const path = require('path');
 const config = require('../../../../config');
 const Location = require('../models/Location');
 const auth = require("../middleware/auth");
+const fs = require('fs');
+
+const MAGIC_NUMBERS = {
+  jpg: 'ffd8ffe0',
+  jpg1: 'ffd8ffe1',
+  png: '89504e47',
+  gif: '47494638'
+}
+
+const checkMagicNumbers = (magic) => {
+  if (
+        magic === MAGIC_NUMBERS.jpg ||
+        magic === MAGIC_NUMBERS.jpg1 || 
+        magic === MAGIC_NUMBERS.png || 
+        magic === MAGIC_NUMBERS.gif
+  ) 
+    return true
+}
 
 const router = express.Router();
 
@@ -23,12 +41,6 @@ const upload = multer({
   limits: {
     files: 5,
     fieldSize: 2 * 1024 * 1024
-  },
-  fileFilter: (req, file, cb) => {
-    if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error("Загрузите картинку"), false);
-    }
-    cb(null, true);
   }
 });
 
@@ -102,10 +114,14 @@ const createRouter = () => {
       req.body.coords = JSON.parse(req.body.coords)
 
       const reqBody = {...req.body};
-      if (req.files) {
-        reqBody.image = req.files.map(file => file.filename);
+      reqBody.image = req.files.map(file => file.filename);
+      const bitmap = fs.readFileSync(config.uploadPath + '/' + reqBody.image).toString('hex', 0, 4);
+      if (!checkMagicNumbers(bitmap)) {
+        fs.unlinkSync(config.uploadPath + '/' + reqBody.image);
+        const error = 'File is not a valid';
+        return res.status(400).send({error: error});
       } else {
-        return res.status(500)
+        res.send('File is uploaded');
       }
 
       reqBody.owner = req.user;
