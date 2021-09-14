@@ -52,7 +52,6 @@ const upload = multer({
 const createRouter = () => {
   router.get('/', async (req, res) => {
     try {
-
       if (req.query.user) {
         const productsOfUser = await Product.find({userId: req.query.user})
           .populate(['userId', 'categoryId', 'factoryId']);
@@ -184,7 +183,6 @@ const createRouter = () => {
       } else {
         res.send('File is uploaded');
       }
-        
 
       reqBody.userId = req.user;
 
@@ -194,8 +192,7 @@ const createRouter = () => {
       return res.send(product);
 
     } catch (error) {
-      console.log(error);
-      return res.status(500).send(error)
+      return res.status(500)
     }
   });
 
